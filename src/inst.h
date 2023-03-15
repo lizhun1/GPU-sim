@@ -126,6 +126,7 @@ static std::map<int,str_int_dict> inst_category{
 vector<string> split_multi(const string &str,string const delims);
 class operand{
     string operand_name;
+
 };
 class inst{
     public:
@@ -134,7 +135,7 @@ class inst{
         pair<int,int> inst_type;
         string inst_opcode;
         vector<string> options;
-        vector<operand> inst_operands;
+        vector<string> inst_operands;
         inst();
         ~inst();
         void get_inst_type();

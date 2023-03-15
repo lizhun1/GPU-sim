@@ -66,6 +66,7 @@ bool is_variable_statement(string line){
 }
 bool is_inst(string line){
     auto tokens=split_multi(line,"\t. ;");
+    if(tokens.size()==0) return false;
     if(all_inst.find(tokens[0])!=all_inst.end()||tokens[0].find('@')!=std::string::npos){
         return true;
     }
@@ -107,6 +108,7 @@ void func::get_inst(){
         if(is_inst(ptx_txt[i]))
         {
             auto tokens=split_multi(ptx_txt[i],"\t ;,");
+            //cout<<"nihao"<<endl;
             //jump point
             if(tokens.front().find(":")!=string::npos){
                 tokens.front().pop_back();
@@ -121,13 +123,22 @@ void func::get_inst(){
                 tokens.erase(tokens.begin());
             }
             //opcode
-
+            auto opcode=tokens.front();
+            auto tmp=split_multi(opcode,".");
+            inst_tmp.inst_opcode=tmp.front();
+            tmp.erase(tmp.begin());
+            tokens.erase(tokens.begin());
+            inst_tmp.options=tmp;
+            inst_tmp.inst_operands=tokens;
+            inst_tmp.get_inst_type();
+            this->inst_queue.push_back(inst_tmp);
+            //cout<<inst_tmp.options[0]<<endl;
 
 
         }
     }
 };
-void cu_thead::malloc_param(){
+void cu_thread::malloc_param(){
     this->func_ctx;
 };
 void warp::run(){
@@ -136,4 +147,4 @@ void warp::run(){
             this->threads[i].run();
     }
 };
-void cu_thead::run(){};
+void cu_thread::run(){};

@@ -6,6 +6,7 @@ int main(int argc, char *argv[]){
     platform pf;
     const char *path="./add.ptx";
     pf.read_a_ptx(path);
+    pf.create_context();
     //pf.funcs[0].show_txt();
     return 0;
 }

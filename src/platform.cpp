@@ -23,7 +23,7 @@ void platform::read_a_ptx(const char* ptx_path){
             func_tmp->get_func_name();
             func_tmp->get_param();
             func_tmp->get_variable();
-            //func_tmp->get_inst();
+            func_tmp->get_inst();
             //func_tmp->show_variable();
             this->funcs.push_back(*func_tmp);
             delete func_tmp;
@@ -33,4 +33,6 @@ void platform::read_a_ptx(const char* ptx_path){
 
     }
 };
+void platform::create_context(){
 
+};

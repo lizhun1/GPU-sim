@@ -51,14 +51,14 @@ class func{
         void get_variable();
         void get_inst();
 };
-class cu_thead{
+class cu_thread{
     int *pc;
     int reg_num=64;
     func *func_ctx;
     map<string,ulong> mem;
     public:
-        cu_thead(){};
-        ~cu_thead(){};
+        cu_thread(){};
+        ~cu_thread(){};
         void malloc_variable();
         void malloc_param();
         void run();
@@ -68,11 +68,14 @@ class warp{
     public:
         static const int warp_size=32;
         int pc=0;
-        cu_thead  threads[warp_size];
+        cu_thread  threads[warp_size];
         func *func_ctx;
         warp();
         ~warp();
         void run();
+};
+class symbol_table{
+    
 };
 class context{
 
