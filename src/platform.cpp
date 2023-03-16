@@ -1,5 +1,6 @@
 #include "platform.h"
 #include <stdlib.h>
+
 platform::platform(){
 
 };
@@ -33,6 +34,20 @@ void platform::read_a_ptx(const char* ptx_path){
 
     }
 };
-void platform::create_context(){
+void platform::create_context(vector<any> real_param){
 
 };
+void platform::sim(string func_name,dim3 cuda_dim,int param_num,... ){
+    int func_idx=0;
+    
+    for(int i=0;i<funcs.size();i++){
+        if(funcs[i].func_name.find(func_name)!=string::npos)
+        {
+            func_idx=i;
+            break;
+        }
+
+    }
+    //unknown param
+
+}

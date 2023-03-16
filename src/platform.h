@@ -2,8 +2,16 @@
 #ifndef platform_H
 #define platform_H
 #include "hardware.h"
+#include <any>
+#include <stdarg.h>
 #include <fstream>
+class dim3{
+    private:
 
+    public:
+        dim3(){};
+        ~dim3(){};
+};
 class platform{
     private:
         int sm_number;
@@ -17,8 +25,8 @@ class platform{
         void read_file_list();
         void read_a_ptx(const char * ptx_path);
         void scan_func();
-        void create_context();
-        void sim();
+        void create_context(vector<any> real_param);
+        void sim(string func_name,dim3 cuda_dim,int param_num,...);
 
 };
 

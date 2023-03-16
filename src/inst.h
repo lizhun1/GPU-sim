@@ -53,6 +53,7 @@ static str_str_dict data_type_lib{
     {"f64","double"},
     {"pred","bool"},
 };
+enum data_type{uint_g,ulong_g,int_g,long_g,float_g,double_g,bool_g};
 static str_int_dict varible_lib{
     {"reg",1},
     {"sreg",2},
@@ -123,6 +124,12 @@ static std::map<int,str_int_dict> inst_category{
     {8,parallel_lib}
 };
 //str_int_dict all_inst;
+class CException
+{
+public:
+    string msg;
+    CException(string s) : msg(s) {}
+};
 vector<string> split_multi(const string &str,string const delims);
 class operand{
     string operand_name;
@@ -131,7 +138,7 @@ class operand{
 class inst{
     public:
         string pred;
-        bool is_pred;
+        bool is_pred=false;
         pair<int,int> inst_type;
         string inst_opcode;
         vector<string> options;

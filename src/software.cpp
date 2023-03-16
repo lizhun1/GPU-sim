@@ -43,8 +43,9 @@ void func::get_param(){
         else
         {
             auto tokens=split_multi(ptx_txt.front()," \t,.");
-            param_t.first=tokens.back();
-            param_t.second=tokens[1];
+            param_t.first=tokens.back();//param name
+            tokens.pop_back();
+            param_t.second=tokens.back();//param type
             ptx_txt.erase(ptx_txt.begin());
             //cout<<param_t.second<<" "<<param_t.first<<endl;
 
@@ -147,4 +148,14 @@ void warp::run(){
             this->threads[i].run();
     }
 };
-void cu_thread::run(){};
+void cu_thread::init_tid(int t){
+    tid=t;
+};
+void cu_thread::run(){
+    try{
+
+    }
+    catch(int){
+
+    }
+};

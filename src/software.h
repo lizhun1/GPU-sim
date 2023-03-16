@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <tuple>
 #include "./inst.h"
 using namespace std;
 class scanner{
@@ -33,13 +34,15 @@ struct variable_txt
 class func{
     private:
         int kernel_para_num;
-        string func_name;
+        
         vector<inst> inst_queue;
         vector<variable_txt> variables;
-        vector<pair<string,string>> param;
+        
         vector<string> ptx_txt;
         map<string,int> jump_point;
     public:
+        string func_name;
+        vector<pair<string,string>> param;
         func();
         ~func();
         void get_func_txt(ifstream &f_stream);
@@ -54,6 +57,7 @@ class func{
 class cu_thread{
     int *pc;
     int reg_num=64;
+    int tid;
     func *func_ctx;
     map<string,ulong> mem;
     public:
@@ -61,7 +65,10 @@ class cu_thread{
         ~cu_thread(){};
         void malloc_variable();
         void malloc_param();
+        void creat_context();
+        void init_tid(int t);
         void run();
+        
 
 };
 class warp{
@@ -75,7 +82,13 @@ class warp{
         void run();
 };
 class symbol_table{
-    
+    private:
+        int varible_num=0;
+        map<string,pair<data_type,int>> varible_table;
+    public:
+        symbol_table(){};
+        ~symbol_table(){};
+        void add_varible(string v_name,data_type v_type,int offset);
 };
 class context{
 
