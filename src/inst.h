@@ -53,6 +53,17 @@ static str_str_dict data_type_lib{
     {"f64","double"},
     {"pred","bool"},
 };
+static str_int_dict data_type_lib_int{
+    {"b32",0+1},
+    {"b64",1+1},
+    {"u32",2+1},
+    {"u64",3+1},
+    {"s32",4+1},
+    {"s64",5+1},
+    {"f32",6+1},
+    {"f64",7+1},
+    {"pred",8+1},
+};
 enum data_type{uint_g,ulong_g,int_g,long_g,float_g,double_g,bool_g};
 static str_int_dict varible_lib{
     {"reg",1},

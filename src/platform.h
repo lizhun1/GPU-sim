@@ -25,7 +25,7 @@ class platform{
         void read_file_list();
         void read_a_ptx(const char * ptx_path);
         void scan_func();
-        void create_context(vector<any> real_param);
+        void create_context(int func_idx,dim3 cuda_dim,vector<any> real_param);
         void sim(string func_name,dim3 cuda_dim,int param_num,...);
 
 };

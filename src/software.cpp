@@ -47,6 +47,7 @@ void func::get_param(){
             tokens.pop_back();
             param_t.second=tokens.back();//param type
             ptx_txt.erase(ptx_txt.begin());
+            param.push_back(param_t);
             //cout<<param_t.second<<" "<<param_t.first<<endl;
 
 

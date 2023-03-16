@@ -4,7 +4,7 @@ OBJDIR=./obj/
 CPP=g++
 OPTS=-Ofast
 LDFLAGS= -lm -pthread 
-COMMON=-Isrc/
+COMMON=-Isrc/ -std=c++17
 CFLAGS=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
 CFLAGS+=$(OPTS)
 OBJ=hardware.o platform.o software.o inst.o
