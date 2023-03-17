@@ -10,9 +10,6 @@
 #include <tuple>
 #include "./inst.h"
 using namespace std;
-class scanner{
-
-};
 class variable{
     string variable_name;
     string data_type;
@@ -34,14 +31,12 @@ struct variable_txt
 class func{
     private:
         int kernel_para_num;
-        
-        vector<inst> inst_queue;
-        vector<variable_txt> variables;
-        
         vector<string> ptx_txt;
         map<string,int> jump_point;
     public:
+        vector<inst> inst_queue;
         string func_name;
+        vector<variable_txt> variables;
         vector<pair<string,string>> param;
         func();
         ~func();
@@ -81,16 +76,12 @@ class warp{
         ~warp();
         void run();
 };
-class symbol_table{
-    private:
-        int varible_num=0;
-        map<string,pair<data_type,int>> varible_table;
-    public:
-        symbol_table(){};
-        ~symbol_table(){};
-        void add_varible(string v_name,data_type v_type,int offset);
-};
+
 class context{
+    public:
+        symbol_table s_t;
+        //warp
+
 
 };
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <cassert>
 platform::platform(){
-
+    this->init_hardware();
 };
 platform::~platform(){
 
@@ -34,17 +34,61 @@ void platform::read_a_ptx(const char* ptx_path){
 
     }
 };
-void platform::create_context(int func_idx,dim3 cuda_dim,vector<any> real_param){
+void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param){
     func *sim_func;
     sim_func=&(funcs[func_idx]);
     //sim_func->show_txt();
-    //next day to build symbol table
-};
-void platform::sim(string func_name,dim3 cuda_dim,int param_num,... ){
+    uint offset=0;
+    //ctx.s_t.add_varible(array_name+to_string(j+1),(enum data_type) data_type_lib_int[var.variable_data_t],0);
+    for(uint i=0;i<sim_func->variables.size();i++){
+        
+        auto var=sim_func->variables[i];
+        //enum data_type d_t=1;
+        if(var.variable_name.find("<")!=string::npos)
+        {
+            uint array_num=stoi(split_multi(var.variable_name,"<>").back());
+            auto array_name=split_multi(var.variable_name,"<>").front();
+            for(uint j=0;j<array_num;j++){
+                cout<<array_name+to_string(j+1)+" is on "+to_string(j+offset)<<endl;
+                ctx.s_t.add_varible(array_name+to_string(j+1),(enum data_type) data_type_lib_int[var.variable_data_t],offset+j);
+            }
+            offset=offset+array_num;
+        }
+        //cout<<var.variable_name<<endl;
+        else 
+            {
+                ctx.s_t.add_varible(var.variable_name,(enum data_type) data_type_lib_int[var.variable_data_t],offset);
+                cout<<var.variable_name+" is on "+to_string(offset)<<endl;
+                offset++;
+            }
+    }
+    for(uint i=0;i<sim_func->param.size();i++){
+        auto par=sim_func->param[i];
+        //enum data_type d_t=1;
+        ctx.s_t.add_param(par.first,(enum data_type) data_type_lib_int[par.second],i);
+        gpu->global_mem_t.mem_write(i,any_cast<ulong>(real_param[i]));
+        cout<<"global mem addr "+to_string(i)+" is "<<hex<<gpu->global_mem_t.mem_read(i)<<endl;
+    }
+    //translate the operands
+     for(uint i=0;i<sim_func->inst_queue.size();i++){
+         sim_func->inst_queue[i].trans(ctx.s_t);
+     }
+
+
+    //sim_func->show_txt();
     
-    int func_idx=0;
+};
+void platform::init_hardware(){
+    this->gpu=new GPGPU();
+}
+void platform::load_inst_cache(uint func_idx){
+
+};
+void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
+    
+    uint func_idx=0;
     //cout<<"hi"<<endl;
-    for(int i=0;i<funcs.size();i++){
+    for(uint i=0;i<funcs.size();i++){
         if(funcs[i].func_name.find(func_name)!=string::npos)
         {
             func_idx=i;
@@ -61,7 +105,7 @@ void platform::sim(string func_name,dim3 cuda_dim,int param_num,... ){
     vector<any> r_param;
     va_start(arg_ptr,param_num);
     
-    for(int i=0;i<param_num;i++){
+    for(uint i=0;i<param_num;i++){
         auto param_txt=funcs[func_idx].param[i];
         
         //cout<<param_txt.first<<endl;
@@ -87,13 +131,13 @@ void platform::sim(string func_name,dim3 cuda_dim,int param_num,... ){
             r_param.push_back(va_arg(arg_ptr,long));
             break;
         case 7:
-            r_param.push_back(va_arg(arg_ptr,float));
+            r_param.push_back(va_arg(arg_ptr,double));
             break;
         case 8:
             r_param.push_back(va_arg(arg_ptr,double));
             break; 
         case 9:
-            r_param.push_back(va_arg(arg_ptr,bool));
+            r_param.push_back(va_arg(arg_ptr,int));
             break;   
         default:
             cout<<"unknown  kernel param type"<<endl;
@@ -102,5 +146,9 @@ void platform::sim(string func_name,dim3 cuda_dim,int param_num,... ){
         }
 
     }
+    cout<<"create context"<<endl;
     this->create_context(func_idx,cuda_dim,r_param);
+    this->load_inst_cache(func_idx);
+    // this->run();
+    // this->del_context();
 }

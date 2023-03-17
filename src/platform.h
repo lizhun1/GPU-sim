@@ -9,24 +9,26 @@ class dim3{
     private:
 
     public:
+        int x;
         dim3(){};
         ~dim3(){};
 };
 class platform{
     private:
         int sm_number;
-        scanner scanner_t;
-        GPGPU gpu;
-        context ctx;
+        GPGPU *gpu;
+        
     public:
+        context ctx;
         vector<func> funcs;
         platform();
         ~platform();
         void read_file_list();
+        void init_hardware();
+        void load_inst_cache(uint func_idx);
         void read_a_ptx(const char * ptx_path);
-        void scan_func();
-        void create_context(int func_idx,dim3 cuda_dim,vector<any> real_param);
-        void sim(string func_name,dim3 cuda_dim,int param_num,...);
+        void create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param);
+        void sim(string func_name,dim3 cuda_dim,uint param_num,...);
 
 };
 

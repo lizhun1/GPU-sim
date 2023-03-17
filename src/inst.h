@@ -3,7 +3,9 @@ _Pragma("once")
 #define inst_H
 #include <string>
 #include <vector>
+#include <iostream>
 #include <map>
+//#include "software.h"
 using namespace std;
 typedef std::map<std::string,int> str_int_dict;
 typedef std::map<std::string,std::string> str_str_dict;
@@ -141,10 +143,26 @@ public:
     string msg;
     CException(string s) : msg(s) {}
 };
+class symbol_table{
+    private:
+        int varible_num=0;
+        int sp_offset=3;
+        
+    public:
+        map<string,pair<data_type,int>> varible_table;
+        map<string,pair<data_type,int>> param_table;
+        symbol_table(){
+            add_varible("%tid.x",(enum data_type)1,-3);
+        };
+        ~symbol_table(){};
+        void add_varible(string v_name,data_type v_type,int offset);
+        void add_param(string p_name,data_type p_type,int offset);
+};
 vector<string> split_multi(const string &str,string const delims);
-class operand{
-    string operand_name;
-
+enum operand_type {reg,imm,mem};
+struct operand{
+    enum operand_type op_t;
+    ulong value;
 };
 class inst{
     public:
@@ -154,9 +172,11 @@ class inst{
         string inst_opcode;
         vector<string> options;
         vector<string> inst_operands;
+        vector<operand> real_operand;
         inst();
         ~inst();
         void get_inst_type();
+        void trans(symbol_table s_t);
 };
 class arithmetic_inst:inst{
     

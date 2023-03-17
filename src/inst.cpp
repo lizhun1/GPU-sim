@@ -45,3 +45,12 @@ void inst::get_inst_type(){
         inst_type.second=parallel_lib[inst_opcode];
     }
 }
+void inst::trans(symbol_table s_t){
+    //using namespace std;
+    for(const auto & op:this->inst_operands){
+        if(s_t.varible_table.find(op)!=s_t.varible_table.end()){
+            
+        }
+        cout<<op<<endl;
+    }
+}

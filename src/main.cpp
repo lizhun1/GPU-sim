@@ -7,10 +7,11 @@ int main(int argc, char *argv[]){
     const char *path="./add.ptx";
     pf.read_a_ptx(path);
     dim3 d;
+    d.x=1;
     cout<<"start sim"<<endl;
-    pf.sim("init_array",d,2,1,1);
-    // for(int i=0;i<pf.funcs.size();i++){
-    //     pf.funcs[i].show_txt();
-    // }
+    int a[5],b[5];
+    //ulong p=ulong(&a);
+    pf.sim("init_array",d,2,ulong(a),ulong(b));
+    
     return 0;
 }

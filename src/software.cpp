@@ -14,12 +14,12 @@ void func::get_func_txt(ifstream &f_stream){
     }
 };
 void func::show_variable(){
-    for(int i=0;i<this->variables.size();i++){
+    for(uint i=0;i<this->variables.size();i++){
         std::cout<<variables[i].variable_name<<variables[i].variable_data_t<<std::endl;
     }
 }
 void func::show_txt(){
-    for(int i=0;i<this->ptx_txt.size();i++){
+    for(uint i=0;i<this->ptx_txt.size();i++){
         std::cout<<this->ptx_txt[i]<<std::endl;
     }
 }
@@ -106,7 +106,7 @@ void func::get_variable(){
 };
 void func::get_inst(){
     inst inst_tmp;
-    for(int i=0;i<ptx_txt.size();i++){
+    for(uint i=0;i<ptx_txt.size();i++){
         if(is_inst(ptx_txt[i]))
         {
             auto tokens=split_multi(ptx_txt[i],"\t ;,");
@@ -141,11 +141,11 @@ void func::get_inst(){
     }
 };
 void cu_thread::malloc_param(){
-    this->func_ctx;
+    //this->func_ctx;
 };
 void warp::run(){
     for(;;pc++){
-        for(int i=0;i<32;i++)
+        for(uint i=0;i<32;i++)
             this->threads[i].run();
     }
 };
@@ -159,4 +159,17 @@ void cu_thread::run(){
     catch(int){
 
     }
+};
+void symbol_table::add_varible(string v_name,data_type v_type,int offset){
+    offset=offset+sp_offset;
+    pair<data_type,int> pair_tmp;
+    pair_tmp.first=v_type;
+    pair_tmp.second=offset;
+    this->varible_table[v_name]=pair_tmp;
+};
+void symbol_table::add_param(string p_name,data_type p_type,int offset){
+    pair<data_type,int> pair_tmp;
+    pair_tmp.first=p_type;
+    pair_tmp.second=offset;
+    this->param_table[p_name]=pair_tmp;
 };
