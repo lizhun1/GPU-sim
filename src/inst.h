@@ -5,6 +5,7 @@ _Pragma("once")
 #include <vector>
 #include <iostream>
 #include <map>
+#include <thread>
 //#include "software.h"
 using namespace std;
 typedef std::map<std::string,int> str_int_dict;
@@ -143,6 +144,14 @@ public:
     string msg;
     CException(string s) : msg(s) {}
 };
+class dim3{
+    private:
+
+    public:
+        int x;
+        dim3(){};
+        ~dim3(){};
+};
 class symbol_table{
     private:
         int varible_num=0;
@@ -155,8 +164,8 @@ class symbol_table{
             add_varible("%tid.x",(enum data_type)1,-3);
         };
         ~symbol_table(){};
-        void add_varible(string v_name,data_type v_type,int offset);
-        void add_param(string p_name,data_type p_type,int offset);
+        void add_varible(string v_name,data_type v_type,uint offset);
+        void add_param(string p_name,data_type p_type,uint offset);
 };
 vector<string> split_multi(const string &str,string const delims);
 enum operand_type {reg,imm,mem};
@@ -177,6 +186,7 @@ class inst{
         ~inst();
         void get_inst_type();
         void trans(symbol_table s_t);
+        enum operand_type opt();
 };
 class arithmetic_inst:inst{
     

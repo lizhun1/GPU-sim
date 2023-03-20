@@ -38,7 +38,7 @@ void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param
     func *sim_func;
     sim_func=&(funcs[func_idx]);
     //sim_func->show_txt();
-    uint offset=0;
+    uint offset=3;
     //ctx.s_t.add_varible(array_name+to_string(j+1),(enum data_type) data_type_lib_int[var.variable_data_t],0);
     for(uint i=0;i<sim_func->variables.size();i++){
         
@@ -73,16 +73,15 @@ void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param
      for(uint i=0;i<sim_func->inst_queue.size();i++){
          sim_func->inst_queue[i].trans(ctx.s_t);
      }
-
-
-    //sim_func->show_txt();
+     //prepare tid.x
+     gpu->prepare_tid(cuda_dim);
     
 };
 void platform::init_hardware(){
     this->gpu=new GPGPU();
 }
 void platform::load_inst_cache(uint func_idx){
-
+    gpu->gpu_load(funcs[func_idx].inst_queue);
 };
 void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
     
@@ -149,6 +148,7 @@ void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
     cout<<"create context"<<endl;
     this->create_context(func_idx,cuda_dim,r_param);
     this->load_inst_cache(func_idx);
-    // this->run();
+    this->gpu->gpu_run();
     // this->del_context();
 }
+

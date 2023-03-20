@@ -5,14 +5,7 @@
 #include <any>
 #include <stdarg.h>
 #include <fstream>
-class dim3{
-    private:
 
-    public:
-        int x;
-        dim3(){};
-        ~dim3(){};
-};
 class platform{
     private:
         int sm_number;

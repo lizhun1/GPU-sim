@@ -160,14 +160,14 @@ void cu_thread::run(){
 
     }
 };
-void symbol_table::add_varible(string v_name,data_type v_type,int offset){
-    offset=offset+sp_offset;
+void symbol_table::add_varible(string v_name,data_type v_type,uint offset){
+    //offset=offset+sp_offset;
     pair<data_type,int> pair_tmp;
     pair_tmp.first=v_type;
     pair_tmp.second=offset;
     this->varible_table[v_name]=pair_tmp;
 };
-void symbol_table::add_param(string p_name,data_type p_type,int offset){
+void symbol_table::add_param(string p_name,data_type p_type,uint offset){
     pair<data_type,int> pair_tmp;
     pair_tmp.first=p_type;
     pair_tmp.second=offset;

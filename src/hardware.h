@@ -25,7 +25,7 @@ class single_core{
     single_core();
     ~single_core();
     void attach_reg(reg_file *r);
-    void exec(arithmetic_inst ari_inst);
+    void exec(inst ari_inst);
 
 };
 class global_mem{
@@ -63,21 +63,32 @@ class inst_cache{
 
 class stream_processer{
     private:
-        int PC=0;
-        reg_file reg_t;
-        int max_warp=2;
-        inst_cache inst_cache_t;
+        uint main_PC=0;
+        uint vice_PC=0;
         global_mem *global_mem_t;
         single_core core[32];
         load_store_unit ldst[32];
+        vector<inst> core_mailbox;
+        vector<inst> ldst_mailbox;
     public:
+        //thread core_t;
+        inst_cache inst_cache_t;
+        reg_file reg_t;
+        uint max_warp=2;
+        uint warp_size=32;
+        uint sid;
         stream_processer();
         ~stream_processer();
         void attach_mem(global_mem *mem);
+        static void inst_dispatch(stream_processer *me);
+        static void run(stream_processer *me);
+        static void core_run(stream_processer *me);
+        static void ldst_run(stream_processer *me);
+        static void warp_sch(stream_processer *me);
 };
 class GPGPU{
     private:
-        int SM_num=1;
+        int SM_num=10;
         
         //inst_cache *inst_cache_t;
         vector<stream_processer> SM;
@@ -85,8 +96,9 @@ class GPGPU{
         global_mem global_mem_t;
         GPGPU();
         ~GPGPU();
-        void gpu_load();
+        void gpu_load(vector<inst> inst_q);
         void gpu_run();
+        void prepare_tid(dim3 cuda_dim);
 };
 
 

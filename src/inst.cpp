@@ -45,12 +45,39 @@ void inst::get_inst_type(){
         inst_type.second=parallel_lib[inst_opcode];
     }
 }
-void inst::trans(symbol_table s_t){
+void inst::trans(symbol_table s_t)
+{
     //using namespace std;
-    for(const auto & op:this->inst_operands){
-        if(s_t.varible_table.find(op)!=s_t.varible_table.end()){
-            
+    for(const auto & op_str:this->inst_operands){
+        operand op_tmp;
+        auto op=op_str;
+        if(op.find("[")!=string::npos){
+            op=split_multi(op_str,"[]").front();
         }
-        cout<<op<<endl;
+        //cout<<op<<endl;
+        if(s_t.varible_table.find(op)!=s_t.varible_table.end())
+        {
+            op_tmp.op_t=reg;
+            op_tmp.value=s_t.varible_table[op].second;
+        }
+        else
+        {
+            if(s_t.param_table.find(op)!=s_t.param_table.end())
+            {
+                op_tmp.op_t=mem;
+                op_tmp.value=s_t.param_table[op].second;
+            }
+            else
+            {
+                op_tmp.op_t=imm;
+                cout<<op<<endl;
+                op_tmp.value=stoi(op);
+            }
+        }
+        real_operand.push_back(op_tmp);
     }
 }
+enum operand_type inst::opt(){
+    cout<<this->inst_opcode<<endl;
+    return reg;
+};
