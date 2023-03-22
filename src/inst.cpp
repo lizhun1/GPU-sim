@@ -69,15 +69,23 @@ void inst::trans(symbol_table s_t)
             }
             else
             {
-                op_tmp.op_t=imm;
-                cout<<op<<endl;
-                op_tmp.value=stoi(op);
+                if(s_t.jump_table.find(op)!=s_t.jump_table.end())
+                {
+                    op_tmp.op_t=pc;
+                    op_tmp.value=s_t.jump_table[op];
+                }
+                else
+                {
+                    op_tmp.op_t=imm;
+                    cout<<op<<endl;
+                    op_tmp.value=stoi(op);
+                }
             }
         }
         real_operand.push_back(op_tmp);
     }
 }
-enum operand_type inst::opt(){
-    cout<<this->inst_opcode<<endl;
-    return reg;
-};
+// enum operand_type inst::opt(){
+//     cout<<this->inst_opcode<<endl;
+//     return reg;
+// };

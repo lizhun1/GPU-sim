@@ -21,9 +21,11 @@ void platform::read_a_ptx(const char* ptx_path){
             func_tmp=new func();
             func_tmp->add_line(line);
             func_tmp->get_func_txt(ptx_f);
+            //func_tmp->show_txt();
             func_tmp->get_func_name();
             func_tmp->get_param();
             func_tmp->get_variable();
+            //func_tmp->show_txt();
             func_tmp->get_inst();
             //func_tmp->show_variable();
             this->funcs.push_back(*func_tmp);
@@ -69,6 +71,7 @@ void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param
         gpu->global_mem_t.mem_write(i,any_cast<ulong>(real_param[i]));
         cout<<"global mem addr "+to_string(i)+" is "<<hex<<gpu->global_mem_t.mem_read(i)<<endl;
     }
+    //
     //translate the operands
      for(uint i=0;i<sim_func->inst_queue.size();i++){
          sim_func->inst_queue[i].trans(ctx.s_t);

@@ -158,17 +158,19 @@ class symbol_table{
         int sp_offset=3;
         
     public:
-        map<string,pair<data_type,int>> varible_table;
-        map<string,pair<data_type,int>> param_table;
+        map<string,pair<data_type,uint>> varible_table;
+        map<string,pair<data_type,uint>> param_table;
+        map<string,uint> jump_table;
         symbol_table(){
-            add_varible("%tid.x",(enum data_type)1,-3);
+            add_varible("%tid.x",(enum data_type)1,0);
         };
         ~symbol_table(){};
         void add_varible(string v_name,data_type v_type,uint offset);
         void add_param(string p_name,data_type p_type,uint offset);
+        void add_jump_point(string jump_point,uint pc);
 };
 vector<string> split_multi(const string &str,string const delims);
-enum operand_type {reg,imm,mem};
+enum operand_type {reg,imm,mem,pc};
 struct operand{
     enum operand_type op_t;
     ulong value;
@@ -186,7 +188,7 @@ class inst{
         ~inst();
         void get_inst_type();
         void trans(symbol_table s_t);
-        enum operand_type opt();
+        //enum operand_type opt();
 };
 class arithmetic_inst:inst{
     

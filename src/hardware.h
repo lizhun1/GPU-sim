@@ -26,6 +26,15 @@ class single_core{
     ~single_core();
     void attach_reg(reg_file *r);
     void exec(inst ari_inst);
+    void add_s(inst ari_inst);
+    void sub_s(inst ari_inst);
+    void mul_s(inst ari_inst);
+    void div_s(inst ari_inst);
+    void mad_s(inst ari_inst);
+    void neg_s(inst ari_inst);
+    void abs_s(inst ari_inst);
+    void min_s(inst ari_inst);
+    void max_s(inst ari_inst);
 
 };
 class global_mem{
@@ -58,11 +67,11 @@ class inst_cache{
         inst_cache();
         ~inst_cache();
         void load_inst(vector<inst> inst_q);
-        inst read_inst(int pc);
+        inst read_inst(uint pc){return inst_queue[pc];};
 };
 
 class stream_processer{
-    private:
+    public:
         uint main_PC=0;
         uint vice_PC=0;
         global_mem *global_mem_t;
@@ -70,7 +79,9 @@ class stream_processer{
         load_store_unit ldst[32];
         vector<inst> core_mailbox;
         vector<inst> ldst_mailbox;
-    public:
+        uint switch_warp=0;
+        mutex core_mailbox_lock;
+    
         //thread core_t;
         inst_cache inst_cache_t;
         reg_file reg_t;
@@ -88,11 +99,11 @@ class stream_processer{
 };
 class GPGPU{
     private:
-        int SM_num=10;
-        
+        static const int SM_num=2;
         //inst_cache *inst_cache_t;
-        vector<stream_processer> SM;
+        stream_processer SM[SM_num];
     public:
+        mutex global_mem_lock;
         global_mem global_mem_t;
         GPGPU();
         ~GPGPU();

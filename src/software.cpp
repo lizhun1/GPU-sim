@@ -6,8 +6,13 @@ warp::~warp(){};
 void func::get_func_txt(ifstream &f_stream){
     string line;
     while(getline(f_stream,line)){
-        if(line.find("ret;")==string::npos)
-            this->ptx_txt.push_back(line);
+        if(line.find("ret;")==string::npos){
+            //del all space line
+            auto tokens=split_multi(line," \t");
+            if(tokens.size()!=0){
+                this->ptx_txt.push_back(line);
+            }   
+        }   
         else{
             this->ptx_txt.push_back(line);
             break;}     
@@ -104,6 +109,9 @@ void func::get_variable(){
     
 
 };
+void func::del_space(){
+
+}
 void func::get_inst(){
     inst inst_tmp;
     for(uint i=0;i<ptx_txt.size();i++){
@@ -162,7 +170,7 @@ void cu_thread::run(){
 };
 void symbol_table::add_varible(string v_name,data_type v_type,uint offset){
     //offset=offset+sp_offset;
-    pair<data_type,int> pair_tmp;
+    pair<data_type,uint> pair_tmp;
     pair_tmp.first=v_type;
     pair_tmp.second=offset;
     this->varible_table[v_name]=pair_tmp;
@@ -172,4 +180,7 @@ void symbol_table::add_param(string p_name,data_type p_type,uint offset){
     pair_tmp.first=p_type;
     pair_tmp.second=offset;
     this->param_table[p_name]=pair_tmp;
+};
+void symbol_table::add_jump_point(string jump_point,uint pc){
+    this->jump_table[jump_point]=pc;
 };

@@ -10,7 +10,6 @@ class platform{
     private:
         int sm_number;
         GPGPU *gpu;
-        
     public:
         context ctx;
         vector<func> funcs;

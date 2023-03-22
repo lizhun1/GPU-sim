@@ -32,7 +32,7 @@ class func{
     private:
         int kernel_para_num;
         vector<string> ptx_txt;
-        map<string,int> jump_point;
+        map<string,uint> jump_point;
     public:
         vector<inst> inst_queue;
         string func_name;
@@ -43,6 +43,7 @@ class func{
         void get_func_txt(ifstream &f_stream);
         void show_txt();
         void show_variable();
+        void del_space();
         void add_line(const string &line);
         void get_func_name();
         void get_param();
