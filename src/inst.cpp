@@ -48,6 +48,16 @@ void inst::get_inst_type(){
 void inst::trans(symbol_table s_t)
 {
     //using namespace std;
+    
+    vector<string>::iterator it;
+    it=find(this->options.begin(),this->options.end(),"f32");
+    if(it!=this->options.end()) this->is_float=true;
+    else this->is_float=false;
+    it=find(this->options.begin(),this->options.end(),"f64");
+    if(it!=this->options.end()) this->is_float=true;
+    else this->is_float=false;
+
+
     for(const auto & op_str:this->inst_operands){
         operand op_tmp;
         auto op=op_str;

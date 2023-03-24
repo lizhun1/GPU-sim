@@ -12,8 +12,8 @@ __global__ void add_kernel(float *result, float *operand_A, float *operand_B)
 __global__ void init_array(float *operand_A,float *operand_B)
 {
     int i=threadIdx.x;
-    operand_A[i]=1.0f;
-    operand_B[i]=1.0f;
+    operand_A[i]=2.0f;
+    operand_B[i]=5.0f;
 }
 // __global__ void init_array3(float operand_A,float *c)
 // {

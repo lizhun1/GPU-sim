@@ -150,6 +150,7 @@ void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
     }
     cout<<"create context"<<endl;
     this->create_context(func_idx,cuda_dim,r_param);
+    //cout<<this->gpu->global_mem_t.mem_read(0)<<"test "<<endl;
     this->load_inst_cache(func_idx);
     this->gpu->gpu_run();
     // this->del_context();

@@ -6,6 +6,9 @@ _Pragma("once")
 #include <iostream>
 #include <map>
 #include <thread>
+#include <cstring>
+#include <iterator>
+#include <algorithm>
 //#include "software.h"
 using namespace std;
 typedef std::map<std::string,int> str_int_dict;
@@ -179,6 +182,7 @@ class inst{
     public:
         string pred;
         bool is_pred=false;
+        bool is_float;
         pair<int,int> inst_type;
         string inst_opcode;
         vector<string> options;

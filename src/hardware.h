@@ -8,20 +8,25 @@
 #include <thread>
 #include "software.h"
 using namespace std;
+class global_mem;
 class reg_file{
     public:
         ulong data[64][64+3];
         reg_file();
         ~reg_file();
         void reg_initial(ulong value);
-        ulong read(int x,int y);
-        void write(int x,int y);
+        ulong reg_read(uint x,uint y);
+        void reg_write(uint x,uint y,ulong value);
 };
 class single_core{
     private:
         int *PC;
         reg_file *reg;
     public:
+    global_mem *global_mem_t;
+    uint core_id;
+    bool p;
+    bool q;
     single_core();
     ~single_core();
     void attach_reg(reg_file *r);
@@ -35,6 +40,10 @@ class single_core{
     void abs_s(inst ari_inst);
     void min_s(inst ari_inst);
     void max_s(inst ari_inst);
+    void mov_s(inst ari_inst);
+    void ld_s(inst ari_inst);
+    void st_s(inst ari_inst);
+    void cvta_s(inst ari_inst);
 
 };
 class global_mem{
@@ -69,11 +78,16 @@ class inst_cache{
         void load_inst(vector<inst> inst_q);
         inst read_inst(uint pc){return inst_queue[pc];};
 };
+struct mask
+{
+    bool m[32];
+};
 
 class stream_processer{
     public:
         uint main_PC=0;
         uint vice_PC=0;
+        //bool p[32];
         global_mem *global_mem_t;
         single_core core[32];
         load_store_unit ldst[32];
@@ -81,7 +95,7 @@ class stream_processer{
         vector<inst> ldst_mailbox;
         uint switch_warp=0;
         mutex core_mailbox_lock;
-    
+        vector<pair<uint,mask>> simt_stack;
         //thread core_t;
         inst_cache inst_cache_t;
         reg_file reg_t;
@@ -91,6 +105,7 @@ class stream_processer{
         stream_processer();
         ~stream_processer();
         void attach_mem(global_mem *mem);
+        static void show_reg(stream_processer *me);
         static void inst_dispatch(stream_processer *me);
         static void run(stream_processer *me);
         static void core_run(stream_processer *me);
@@ -99,7 +114,7 @@ class stream_processer{
 };
 class GPGPU{
     private:
-        static const int SM_num=2;
+        static const int SM_num=1;
         //inst_cache *inst_cache_t;
         stream_processer SM[SM_num];
     public:

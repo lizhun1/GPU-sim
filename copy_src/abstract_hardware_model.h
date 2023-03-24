@@ -164,7 +164,7 @@ enum _memory_op_t { no_memory_op = 0, memory_load, memory_store };
 #include <vector>
 
 #if !defined(__VECTOR_TYPES_H__)
-#include "vector_types.h"
+//#include "vector_types.h"
 #endif
 struct dim3comp {
   bool operator()(const dim3 &a, const dim3 &b) const {
@@ -182,7 +182,7 @@ struct dim3comp {
 void increment_x_then_y_then_z(dim3 &i, const dim3 &bound);
 
 // Jin: child kernel information for CDP
-#include "stream_manager.h"
+//#include "stream_manager.h"
 class stream_manager;
 struct CUstream_st;
 // extern stream_manager * g_stream_manager;
@@ -470,7 +470,7 @@ const unsigned long long STATIC_ALLOC_LIMIT =
 
 #if !defined(__CUDA_RUNTIME_API_H__)
 
-#include "builtin_types.h"
+//#include "builtin_types.h"
 
 struct cudaArray {
   void *devPtr;
