@@ -74,7 +74,7 @@ bool is_variable_statement(string line){
 bool is_inst(string line){
     auto tokens=split_multi(line,"\t. ;");
     if(tokens.size()==0) return false;
-    if(all_inst.find(tokens[0])!=all_inst.end()||tokens[0].find('@')!=std::string::npos){
+    if(all_inst.find(tokens[0])!=all_inst.end()||tokens[0].find('@')!=std::string::npos||tokens[0].find(':')!=std::string::npos){
         return true;
     }
     else return false;
@@ -113,22 +113,26 @@ void func::del_space(){
 
 }
 void func::get_inst(){
-    inst inst_tmp;
+    
     for(uint i=0;i<ptx_txt.size();i++){
+        inst inst_tmp;
         if(is_inst(ptx_txt[i]))
         {
             auto tokens=split_multi(ptx_txt[i],"\t ;,");
-            //cout<<"nihao"<<endl;
+            //cout<<tokens.front()<<endl;
             //jump point
             if(tokens.front().find(":")!=string::npos){
+                //cout<<"jump"<<endl;
                 tokens.front().pop_back();
                 this->jump_point[tokens.front()]=i;
+                continue;
 
             }
             //pred var
             if(tokens.front().find("@")!=string::npos){
+                //cout<<ptx_txt[i]<<endl;
                 tokens.front().erase(tokens.front().begin());
-                inst_tmp.pred=true;
+                inst_tmp.is_pred=true;
                 inst_tmp.pred=tokens.front();
                 tokens.erase(tokens.begin());
             }

@@ -32,8 +32,9 @@ class func{
     private:
         int kernel_para_num;
         vector<string> ptx_txt;
-        map<string,uint> jump_point;
+        
     public:
+        map<string,uint> jump_point;
         vector<inst> inst_queue;
         string func_name;
         vector<variable_txt> variables;

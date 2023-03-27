@@ -29,8 +29,8 @@ GPGPU::GPGPU(){
     }
     for(uint i=0;i<SM_num;i++){
         SM[i].attach_mem(&(this->global_mem_t));
-
-        SM[i].simt_stack.push_back(pair<uint,mask>(0,m_a));
+        SM[i].active_mask=m_a;
+        //SM[i].simt_stack.push_back(pair<uint,mask>(0,m_a));
     };
 };
 GPGPU::~GPGPU(){
@@ -84,45 +84,90 @@ void stream_processer::core_run(stream_processer *me){
         {
             if(me->core_mailbox.size()==1){
                 //handle bra
-                if(me->core_mailbox.front().is_pred==true&&me->core_mailbox.front().inst_opcode=="bra"){
-                    mask m_b;
-                    for(uint i=0;i<32;i++){
-                        m_b.m[i]=me->core[i].p;
-                    }
-                    //gen mask
-                    if(me->core_mailbox.front().real_operand.front().value<me->main_PC){
-                        pair<uint,mask> simt_stack_element;
-                        simt_stack_element.first=me->main_PC;
-                        simt_stack_element.second=m_b;
-                        me->main_PC=me->core_mailbox.front().real_operand.front().value;
-                        me->simt_stack.push_back(simt_stack_element);
-                    }
-                    else{
-                        pair<uint,mask> simt_stack_element;
-                        simt_stack_element.first=me->core_mailbox.front().real_operand.front().value;
-                        for(uint i=0;i<32;i++){
-                            m_b.m[i]=!m_b.m[i];
-                        }
-                        simt_stack_element.second=m_b;
-                        me->simt_stack.push_back(simt_stack_element);
-                    }
+                cout<<me->core_mailbox.front().inst_opcode<<endl;
+                cout<<me->core_mailbox.front().is_pred<<endl;
+                if(me->core_mailbox.front().inst_opcode=="bra"&&me->core_mailbox.front().is_pred==false)
+                {
+                    cout<<"///////////uni bra to"<<me->core_mailbox.front().real_operand.front().value<<"/////////////"<<endl;
+                    me->main_PC=me->core_mailbox.front().real_operand.front().value;
                 }
-                //branch  convergence
-                if(me->main_PC==me->simt_stack.back().first){
-                    me->simt_stack.pop_back();
+                else{
+                    if(me->core_mailbox.front().is_pred==true&&me->core_mailbox.front().inst_opcode=="bra")
+                    {
+                        cout<<"pred bra//////////////////////////////"<<endl;
+                
+                        mask m_b;
+                        mask m_b_rev;
+                        for(uint i=0;i<32;i++){
+                            m_b.m[i]=me->core[i].p;
+                            m_b_rev.m[i]=!me->core[i].p;
+                        }   
+                    //gen mask
+                        if(me->core_mailbox.front().real_operand.front().value<me->main_PC){
+                            pair<uint,mask> simt_stack_element;
+                            me->active_mask=m_b;
+                            simt_stack_element.first=me->main_PC;
+                            simt_stack_element.second=m_b_rev;
+                            me->main_PC=me->core_mailbox.front().real_operand.front().value;
+                            me->simt_stack.push_back(simt_stack_element);
+                        }
+                        else
+                        {
+                            pair<uint,mask> simt_stack_element;
+                            simt_stack_element.first=me->core_mailbox.front().real_operand.front().value;
+                            me->active_mask=m_b_rev;
+                            simt_stack_element.second=m_b;
+                            me->simt_stack.push_back(simt_stack_element);
+                        }
+                    }
+                    //branch  convergence
+                    if(me->simt_stack.size()>0&&me->main_PC==me->simt_stack.back().first){
+                        cout<<"get to convergence"<<endl;
+                        me->active_mask=me->simt_stack.back().second;
+                        me->simt_stack.pop_back();
+
+                    }
+                    //cout<<"error"<<endl;
+                    ////////////core
+                    streambuf *ori=cout.rdbuf();
+                    //cout.rdbuf(NULL);
+                    for(uint i=0;i<32;i++)
+                    {
+                        if(me->active_mask.m[i]){
+                            if(me->core_mailbox.front().is_pred){
+                                if(me->core[i].p){
+                                    me->core[i].exec(me->core_mailbox.front());
+                                }
+                                
+                            }
+                            else{
+                                me->core[i].exec(me->core_mailbox.front());
+                            }
+                            
+                        }
+                    }
+                    cout.rdbuf(ori);
+                    //////////////
 
                 }
-                for(uint i=0;i<32;i++){
-                    if(me->simt_stack.back().second.m[i]){
-                        me->core[i].exec(me->core_mailbox.front());
-                    }
-                }
-                //cout<<me->main_PC<<endl;
+                cout<<"pc is "<<me->main_PC<<endl;
                 if(me->core_mailbox.front().inst_opcode=="ret"){
-                    me->core_mailbox.erase(me->core_mailbox.begin());
-                    me->core_mailbox_lock.unlock();
-                    break;
-                } 
+                    if(me->simt_stack.size()==0){
+                        me->core_mailbox.erase(me->core_mailbox.begin());
+                        me->core_mailbox_lock.unlock();
+                        break;
+                    }
+                    else{
+                        cout<<"here"<<endl;
+                        me->main_PC=me->simt_stack.back().first;
+                        me->active_mask=me->simt_stack.back().second;
+                        me->simt_stack.pop_back();
+                        //me->core_mailbox.erase(me->core_mailbox.begin());
+                        //me->core_mailbox_lock.unlock();
+                        //break;
+                    } 
+                }
+                
                 me->core_mailbox.erase(me->core_mailbox.begin());
                   
             }
@@ -144,13 +189,23 @@ void stream_processer::inst_dispatch(stream_processer *me){
             if(me->core_mailbox.size()==0){
                 me->core_mailbox.push_back(me->inst_cache_t.read_inst(me->main_PC)); 
                 
-                if(me->inst_cache_t.read_inst(me->main_PC).inst_opcode=="ret") 
+                if(me->inst_cache_t.read_inst(me->main_PC).inst_opcode=="ret"&&me->simt_stack.size()==0) 
                 {   
                     //cout<<"here ret"<<endl;
                     me->core_mailbox_lock.unlock();
                     break;
                 }
-                me->main_PC++;
+                else{
+                    if(me->inst_cache_t.read_inst(me->main_PC).inst_opcode=="ret"&&me->simt_stack.size()>0)
+                    {
+                        //dont change pc
+                    }
+                    else{
+                        me->main_PC++;
+                    }
+                    
+                }
+                
             }
             me->core_mailbox_lock.unlock();  
         }
@@ -223,6 +278,19 @@ void single_core::exec(inst ari_inst){
             break;
         }
         break;
+    case 4:
+        switch (ari_inst.inst_type.second)
+        {
+        case 1:
+            setp_s(ari_inst);
+            break;
+        case 2:
+            selp_s(ari_inst);
+            break;
+        default:
+            break;
+        }
+        break;
     case 7:
         switch (ari_inst.inst_type.second)
         {
@@ -272,11 +340,18 @@ void single_core::add_s(inst ari_inst){
         //cout<<d_reg<<endl;
         this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
     }
+    cout<<"add"<<endl;
 }
 void single_core::mul_s(inst ari_inst){
     if(ari_inst.is_float){
-        auto s_reg1_offset=ari_inst.real_operand[2].value;
-        auto s_reg1=double(this->reg->reg_read(core_id,s_reg1_offset));
+        double s_reg1;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=double(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=double(ari_inst.real_operand[2].value);
+        }
         auto s_reg2_offset=ari_inst.real_operand[1].value;
         auto s_reg2=double(this->reg->reg_read(core_id,s_reg2_offset));
         auto d_reg_offset=ari_inst.real_operand[0].value;
@@ -284,8 +359,14 @@ void single_core::mul_s(inst ari_inst){
         this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
     }
     else{
-        auto s_reg1_offset=ari_inst.real_operand[2].value;
-        auto s_reg1=long(this->reg->reg_read(core_id,s_reg1_offset));
+        long s_reg1;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=long(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=long(ari_inst.real_operand[2].value);
+        }
         auto s_reg2_offset=ari_inst.real_operand[1].value;
         auto s_reg2=long(this->reg->reg_read(core_id,s_reg2_offset));
         auto d_reg_offset=ari_inst.real_operand[0].value;
@@ -435,9 +516,19 @@ void single_core::mov_s(inst ari_inst){
 }
 
 void single_core::ld_s(inst ari_inst){
-    //vector<string> 
+    //vector<string>
     auto d_reg_offset=ari_inst.real_operand[0].value;
-    auto value=this->global_mem_t->mem_read(ari_inst.real_operand[1].value);
+    ulong value;
+    if(ari_inst.real_operand[1].op_t==0){
+        auto s_reg1_offset=ari_inst.real_operand[1].value;
+        auto s_reg1=(ulong*)(this->reg->reg_read(core_id,s_reg1_offset));
+        value=*s_reg1;
+    }
+    else{
+        
+        value=this->global_mem_t->mem_read(ari_inst.real_operand[1].value);
+        
+    } 
     this->reg->reg_write(core_id,d_reg_offset,ulong(value));
     cout<<"core "<<core_id<<" load "<<value<<" to "<<ari_inst.inst_operands[0]<<endl;
     // cout<<value<<endl;
@@ -461,6 +552,99 @@ void single_core::cvta_s(inst ari_inst){
     cout<<"cvta "<<ari_inst.inst_operands[1]<<" to "<<ari_inst.inst_operands[0]<<" "<<s_reg1<<" to "<<d_reg_offset<<endl;
     this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
 };
+void single_core::setp_s(inst ari_inst){
+    auto options=ari_inst.options;
+    if(ari_inst.is_float){
+        double s_reg1;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=double(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=double(ari_inst.real_operand[2].value);
+        }
+        auto s_reg2_offset=ari_inst.real_operand[1].value;
+        auto s_reg2=double(this->reg->reg_read(core_id,s_reg2_offset));
+        if(find(options.begin(),options.end(),"eq")!=options.end()){
+            this->p=(s_reg2==s_reg1)?1:0;
+        }
+        if(find(options.begin(),options.end(),"gt")!=options.end()){
+            this->p=(s_reg2>s_reg1)?1:0;
+        }
+        if(find(options.begin(),options.end(),"lt")!=options.end()){
+            this->p=(s_reg2<s_reg1)?1:0;
+        }
+        cout<<"setp "<<s_reg2<<" "<<s_reg1<<endl;
+        //auto d_reg=double(s_reg1*s_reg2);
+        //this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
+    }
+    else{
+        long s_reg1;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=long(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=long(ari_inst.real_operand[2].value);
+        }
+        auto s_reg2_offset=ari_inst.real_operand[1].value;
+        auto s_reg2=long(this->reg->reg_read(core_id,s_reg2_offset));
+        if(find(options.begin(),options.end(),"eq")!=options.end()){
+            this->p=(s_reg2==s_reg1)?1:0;
+        }
+        if(find(options.begin(),options.end(),"gt")!=options.end()){
+            this->p=(s_reg2>s_reg1)?1:0;
+        }
+        if(find(options.begin(),options.end(),"lt")!=options.end()){
+            this->p=(s_reg2<s_reg1)?1:0;
+        }
+        cout<<"setp "<<s_reg2<<" "<<s_reg1<<endl;
+    }
+}
+void single_core::selp_s(inst ari_inst){
+    auto options=ari_inst.options;
+    auto d_reg_offset=ari_inst.real_operand[0].value;
+    if(ari_inst.is_float){
+        double s_reg1;
+        double s_reg2;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=double(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=double(ari_inst.real_operand[2].value);
+        }
+        if(ari_inst.real_operand[1].op_t==0){
+            auto s_reg2_offset=ari_inst.real_operand[1].value;
+            s_reg2=double(this->reg->reg_read(core_id,s_reg2_offset));
+        }
+        else{
+            s_reg2=double(ari_inst.real_operand[1].value);
+        }
+        auto d_reg=this->p?s_reg2:s_reg1;
+        this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
+    }
+    else{
+        long s_reg1;
+        long s_reg2;
+        if(ari_inst.real_operand[2].op_t==0){
+            auto s_reg1_offset=ari_inst.real_operand[2].value;
+            s_reg1=long(this->reg->reg_read(core_id,s_reg1_offset));
+        }
+        else{
+            s_reg1=long(ari_inst.real_operand[2].value);
+        }
+        if(ari_inst.real_operand[1].op_t==0){
+            auto s_reg2_offset=ari_inst.real_operand[1].value;
+            s_reg2=long(this->reg->reg_read(core_id,s_reg2_offset));
+        }
+        else{
+            s_reg2=long(ari_inst.real_operand[1].value);
+        }
+        auto d_reg=this->p?s_reg2:s_reg1;
+        this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
+    }
+}
 reg_file::reg_file(){};
 reg_file::~reg_file(){};
 single_core::single_core(){};

@@ -44,6 +44,8 @@ class single_core{
     void ld_s(inst ari_inst);
     void st_s(inst ari_inst);
     void cvta_s(inst ari_inst);
+    void setp_s(inst ari_inst);
+    void selp_s(inst ari_inst);
 
 };
 class global_mem{
@@ -96,6 +98,7 @@ class stream_processer{
         uint switch_warp=0;
         mutex core_mailbox_lock;
         vector<pair<uint,mask>> simt_stack;
+        mask active_mask;
         //thread core_t;
         inst_cache inst_cache_t;
         reg_file reg_t;

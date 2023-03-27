@@ -48,7 +48,7 @@ void inst::get_inst_type(){
 void inst::trans(symbol_table s_t)
 {
     //using namespace std;
-    
+
     vector<string>::iterator it;
     it=find(this->options.begin(),this->options.end(),"f32");
     if(it!=this->options.end()) this->is_float=true;
@@ -61,6 +61,7 @@ void inst::trans(symbol_table s_t)
     for(const auto & op_str:this->inst_operands){
         operand op_tmp;
         auto op=op_str;
+        //cout<<op<<endl;
         if(op.find("[")!=string::npos){
             op=split_multi(op_str,"[]").front();
         }
@@ -83,12 +84,23 @@ void inst::trans(symbol_table s_t)
                 {
                     op_tmp.op_t=pc;
                     op_tmp.value=s_t.jump_table[op];
+                    //cout<<op<<endl;
                 }
                 else
                 {
                     op_tmp.op_t=imm;
-                    cout<<op<<endl;
-                    op_tmp.value=stoi(op);
+                    
+                    if(op.front()=='0'&&op.find("f")!=string::npos){
+                        op.erase(op.begin());
+                        op.erase(op.begin());
+                        
+                        op_tmp.value=stoul(op,nullptr,16);
+                        //cout<<op<<endl;
+                    }
+                    else{
+                        op_tmp.value=stol(op);
+                    }
+                    
                 }
             }
         }

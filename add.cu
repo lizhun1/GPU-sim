@@ -15,6 +15,42 @@ __global__ void init_array(float *operand_A,float *operand_B)
     operand_A[i]=2.0f;
     operand_B[i]=5.0f;
 }
+__global__ void init_array_setp(float *operand_A,float *operand_B)
+{
+    int i=threadIdx.x;
+    if(i<16){
+        operand_A[i]=2.0f;
+        operand_B[i]=5.0f;
+    }
+    else{
+        operand_A[i]=0;
+        operand_B[i]=0;
+    }
+    
+}
+__global__ void init_array_bra(float *operand_A,float *operand_B)
+{
+    int i=threadIdx.x;
+    float a=1.0f;
+    float b=2.0f;
+    if(i==0){
+       
+        a=a+1;
+        b=b+3;
+        operand_A[i]=a;
+        operand_B[i]=b;
+    }
+    else{
+        b=b-4;
+        a=a-2;
+        operand_A[i]=a;
+        operand_B[i]=b;
+
+    }
+    operand_A[i]=operand_A[i]+a;
+    operand_B[i]=operand_B[i]+b;
+    
+}
 // __global__ void init_array3(float operand_A,float *c)
 // {
 //     int i=threadIdx.x;

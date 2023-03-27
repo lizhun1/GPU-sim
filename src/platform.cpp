@@ -71,12 +71,17 @@ void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param
         gpu->global_mem_t.mem_write(i,any_cast<ulong>(real_param[i]));
         cout<<"global mem addr "+to_string(i)+" is "<<hex<<gpu->global_mem_t.mem_read(i)<<endl;
     }
-    //
+    //jump_point
+    ctx.s_t.jump_table=sim_func->jump_point;
+    for(auto &jump:sim_func->jump_point){
+        cout<<"jump point "<<jump.first<<" is "<<jump.second<<endl;
+    }
     //translate the operands
      for(uint i=0;i<sim_func->inst_queue.size();i++){
          sim_func->inst_queue[i].trans(ctx.s_t);
      }
      //prepare tid.x
+     cout<<"prepare tid"<<endl;
      gpu->prepare_tid(cuda_dim);
     
 };
