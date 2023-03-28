@@ -50,6 +50,7 @@ class func{
         void get_param();
         void get_variable();
         void get_inst();
+        void show_jt();
 };
 class cu_thread{
     int *pc;

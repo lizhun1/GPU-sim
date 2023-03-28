@@ -122,8 +122,8 @@ void func::get_inst(){
             //cout<<tokens.front()<<endl;
             //jump point
             if(tokens.front().find(":")!=string::npos){
-                //cout<<"jump"<<endl;
                 tokens.front().pop_back();
+                //cout<<tokens.front()<<endl;
                 this->jump_point[tokens.front()]=i;
                 continue;
 
@@ -188,3 +188,8 @@ void symbol_table::add_param(string p_name,data_type p_type,uint offset){
 void symbol_table::add_jump_point(string jump_point,uint pc){
     this->jump_table[jump_point]=pc;
 };
+void func::show_jt(){
+    for(auto &j:this->jump_point){
+        cout<<j.first<<" is "<<j.second<<endl;
+    }
+}

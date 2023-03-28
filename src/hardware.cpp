@@ -89,20 +89,20 @@ void stream_processer::core_run(stream_processer *me){
                 if(me->core_mailbox.front().inst_opcode=="bra"&&me->core_mailbox.front().is_pred==false)
                 {
                     cout<<"///////////uni bra to"<<me->core_mailbox.front().real_operand.front().value<<"/////////////"<<endl;
-                    me->main_PC=me->core_mailbox.front().real_operand.front().value;
+                    me->main_PC=me->core_mailbox.front().real_operand.front().value-1;
                 }
                 else{
                     if(me->core_mailbox.front().is_pred==true&&me->core_mailbox.front().inst_opcode=="bra")
                     {
                         cout<<"pred bra//////////////////////////////"<<endl;
-                
+                        //gen mask
                         mask m_b;
                         mask m_b_rev;
                         for(uint i=0;i<32;i++){
+                            //cout<<"p"<<me->core[i].p<<endl;
                             m_b.m[i]=me->core[i].p;
                             m_b_rev.m[i]=!me->core[i].p;
                         }   
-                    //gen mask
                         if(me->core_mailbox.front().real_operand.front().value<me->main_PC){
                             pair<uint,mask> simt_stack_element;
                             me->active_mask=m_b;
@@ -113,9 +113,11 @@ void stream_processer::core_run(stream_processer *me){
                         }
                         else
                         {
+                            cout<<"change mask"<<endl;
                             pair<uint,mask> simt_stack_element;
                             simt_stack_element.first=me->core_mailbox.front().real_operand.front().value;
                             me->active_mask=m_b_rev;
+                            cout<<m_b_rev.m[15]<<endl;
                             simt_stack_element.second=m_b;
                             me->simt_stack.push_back(simt_stack_element);
                         }
@@ -214,8 +216,10 @@ void stream_processer::inst_dispatch(stream_processer *me){
     
 };
 void stream_processer::show_reg(stream_processer *me){
-    for(auto &i:me->reg_t.data[1]){
-        cout<<i<<endl;
+    int j=0;
+    for(auto &i:me->reg_t.data[0]){
+        cout<<j<<" "<<i<<endl;
+        j++;
     }
 }
 void GPGPU::gpu_run(){
@@ -322,13 +326,19 @@ void reg_file::reg_write(uint x,uint y,ulong value){
 }
 void single_core::add_s(inst ari_inst){
     if(ari_inst.is_float){
+        
         auto s_reg1_offset=ari_inst.real_operand[2].value;
-        auto s_reg1=double(this->reg->reg_read(core_id,s_reg1_offset));
+        auto s_reg1=this->reg->reg_read(core_id,s_reg1_offset);
+        auto s_reg1_double=(double*)&s_reg1;
         auto s_reg2_offset=ari_inst.real_operand[1].value;
-        auto s_reg2=double(this->reg->reg_read(core_id,s_reg2_offset));
+        auto s_reg2=this->reg->reg_read(core_id,s_reg2_offset);
+        auto s_reg2_double=(double*)&s_reg2;
         auto d_reg_offset=ari_inst.real_operand[0].value;
-        auto d_reg=double(s_reg1+s_reg2);
-        this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
+        auto d_reg=double(*s_reg1_double+*s_reg2_double);
+        auto d_reg_long=(ulong*)&d_reg;
+        this->reg->reg_write(core_id,d_reg_offset,ulong(*d_reg_long));
+        cout<<"add double result is "<<d_reg<<endl;
+        cout<<s_reg1<<" "<<s_reg2<<endl;
     }
     else{
         auto s_reg1_offset=ari_inst.real_operand[2].value;
@@ -339,8 +349,9 @@ void single_core::add_s(inst ari_inst){
         auto d_reg=long(s_reg1+s_reg2);
         //cout<<d_reg<<endl;
         this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
+        cout<<"add long result is "<<d_reg<<endl;
     }
-    cout<<"add"<<endl;
+    
 }
 void single_core::mul_s(inst ari_inst){
     if(ari_inst.is_float){
@@ -371,7 +382,7 @@ void single_core::mul_s(inst ari_inst){
         auto s_reg2=long(this->reg->reg_read(core_id,s_reg2_offset));
         auto d_reg_offset=ari_inst.real_operand[0].value;
         auto d_reg=long(s_reg1*s_reg2);
-        cout<<"mul"<<endl;
+        cout<<"mul"<<d_reg<<" "<<s_reg2<<" "<<s_reg1<<endl;
         //cout<<d_reg<<endl;
         this->reg->reg_write(core_id,d_reg_offset,ulong(d_reg));
     }
@@ -538,6 +549,7 @@ void single_core::st_s(inst ari_inst){
     auto s_reg1_offset=ari_inst.real_operand[1].value;
     auto s_reg1=ulong(this->reg->reg_read(core_id,s_reg1_offset));
     auto d_reg_offset=ari_inst.real_operand[0].value;
+    //if()
     auto d_reg=(ulong*)(this->reg->reg_read(core_id,d_reg_offset));
     *d_reg=s_reg1;
     cout<<"st "<<ari_inst.inst_operands[1]<<" to "<<ari_inst.inst_operands[0]<<endl;

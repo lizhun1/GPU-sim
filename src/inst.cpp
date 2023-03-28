@@ -84,13 +84,13 @@ void inst::trans(symbol_table s_t)
                 {
                     op_tmp.op_t=pc;
                     op_tmp.value=s_t.jump_table[op];
-                    //cout<<op<<endl;
+                    //cout<<s_t.jump_table[op]<<dec<<endl;
                 }
                 else
                 {
                     op_tmp.op_t=imm;
-                    
-                    if(op.front()=='0'&&op.find("f")!=string::npos){
+                    //cout<<"float"<<endl;
+                    if(op.front()=='0'&&(op.at(1)=='f'||op.at(1)=='d'||op.at(1)=='F'||op.at(1)=='D')){
                         op.erase(op.begin());
                         op.erase(op.begin());
                         

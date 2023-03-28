@@ -3,19 +3,19 @@
 #include "stdio.h"
 #include <iostream>
 //cuda kernel function
-__global__ void add_kernel(float *result, float *operand_A, float *operand_B)
+__global__ void add_kernel(double *result, double *operand_A, double *operand_B)
 {
     int i=threadIdx.x;
     result[i]=operand_A[i]+operand_B[i];
 }
 
-__global__ void init_array(float *operand_A,float *operand_B)
+__global__ void init_array(double *operand_A,double *operand_B)
 {
     int i=threadIdx.x;
     operand_A[i]=2.0f;
     operand_B[i]=5.0f;
 }
-__global__ void init_array_setp(float *operand_A,float *operand_B)
+__global__ void init_array_setp(double *operand_A,double *operand_B)
 {
     int i=threadIdx.x;
     if(i<16){
@@ -28,11 +28,11 @@ __global__ void init_array_setp(float *operand_A,float *operand_B)
     }
     
 }
-__global__ void init_array_bra(float *operand_A,float *operand_B)
+__global__ void init_array_bra(double *operand_A,double *operand_B)
 {
     int i=threadIdx.x;
-    float a=1.0f;
-    float b=2.0f;
+    double a=1.0f;
+    double b=2.0f;
     if(i==0){
        
         a=a+1;
@@ -63,11 +63,11 @@ __global__ void init_array_bra(float *operand_A,float *operand_B)
 int main()
 {   
     int array_size=10;
-    float *a,*b,*x;
+    double *a,*b,*x;
     //allocate unified memory
-    cudaMallocManaged(&a,array_size*sizeof(float));
-    cudaMallocManaged(&b,array_size*sizeof(float));
-    cudaMallocManaged(&x,array_size*sizeof(float));
+    cudaMallocManaged(&a,array_size*sizeof(double));
+    cudaMallocManaged(&b,array_size*sizeof(double));
+    cudaMallocManaged(&x,array_size*sizeof(double));
     //run kernel
     //platform("./file_list.txt")
     //platform.sim(string func_name,class cta,p1,p2)

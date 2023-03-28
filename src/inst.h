@@ -183,6 +183,7 @@ class inst{
         string pred;
         bool is_pred=false;
         bool is_float;
+        uint data_width;
         pair<int,int> inst_type;
         string inst_opcode;
         vector<string> options;

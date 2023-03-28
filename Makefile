@@ -1,5 +1,5 @@
 VPATH=./src/
-EXEC=main
+EXEC=ptx_sim
 OBJDIR=./obj/
 CPP=g++
 OPTS=-Ofast

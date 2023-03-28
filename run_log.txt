@@ -1,862 +1,995 @@
+BB3_2 is 17
+BB3_3 is 24
 start sim
+sim func inst num is 30
+	ld.param.u64 	%rd4, [_Z14init_array_braPdS__param_0];
+	ld.param.u64 	%rd5, [_Z14init_array_braPdS__param_1];
+	cvta.to.global.u64 	%rd1, %rd5;
+	mov.u32 	%r1, %tid.x;
+	setp.eq.s32	%p1, %r1, 0d0;
+	cvta.to.global.u64 	%rd6, %rd4;
+	mul.wide.s32 	%rd7, %r1, 8;
+	add.s64 	%rd2, %rd6, %rd7;
+	add.s64 	%rd3, %rd1, %rd7;
+	@%p1 bra 	BB3_2;
+	mov.u64 	%rd8, -4616189618054758400;
+	st.global.u64 	[%rd2], %rd8;
+	mov.u64 	%rd9, -4611686018427387904;
+	st.global.u64 	[%rd3], %rd9;
+	mov.f64 	%fd12, 0dC000000000000000;
+	mov.f64 	%fd11, 0dBFF0000000000000;
+	bra.uni 	BB3_3;
+BB3_2:
+	mov.u64 	%rd10, 4611686018427387904;
+	st.global.u64 	[%rd2], %rd10;
+	mov.u64 	%rd11, 4617315517961601024;
+	st.global.u64 	[%rd1], %rd11;
+	mov.f64 	%fd12, 0d4014000000000000;
+	mov.f64 	%fd11, 0d4000000000000000;
+BB3_3:
+	ld.global.f64 	%fd7, [%rd2];
+	add.f64 	%fd8, %fd11, %fd7;
+	st.global.f64 	[%rd2], %fd8;
+	ld.global.f64 	%fd9, [%rd3];
+	add.f64 	%fd10, %fd12, %fd9;
+	st.global.f64 	[%rd3], %fd10;
+	ret;
 create context
+BB3_2 is 17
+BB3_3 is 24
 %p1 is on 3
 %p2 is on 4
-%f1 is on 5
-%f2 is on 6
-%f3 is on 7
-%f4 is on 8
-%f5 is on 9
-%f6 is on 10
-%f7 is on 11
-%f8 is on 12
-%f9 is on 13
-%f10 is on 14
-%f11 is on 15
-%f12 is on 16
-%f13 is on 17
-%r1 is on 18
-%r2 is on 19
-%r3 is on 20
-%r4 is on 21
-%r5 is on 22
-%r6 is on 23
-%rd1 is on 24
-%rd2 is on 25
-%rd3 is on 26
-%rd4 is on 27
-%rd5 is on 28
-%rd6 is on 29
-%rd7 is on 30
-%rd8 is on 31
-global mem addr 0 is 7ffcdffec6d0
-global mem addr 1 is 7ffcdffec750
-jump point BB3_2 is 11
-jump point BB3_3 is 18
+%r1 is on 5
+%r2 is on 6
+%fd1 is on 7
+%fd2 is on 8
+%fd3 is on 9
+%fd4 is on 10
+%fd5 is on 11
+%fd6 is on 12
+%fd7 is on 13
+%fd8 is on 14
+%fd9 is on 15
+%fd10 is on 16
+%fd11 is on 17
+%fd12 is on 18
+%fd13 is on 19
+%rd1 is on 20
+%rd2 is on 21
+%rd3 is on 22
+%rd4 is on 23
+%rd5 is on 24
+%rd6 is on 25
+%rd7 is on 26
+%rd8 is on 27
+%rd9 is on 28
+%rd10 is on 29
+%rd11 is on 30
+%rd12 is on 31
+global mem addr 0 is 7ffc68993710
+global mem addr 1 is 7ffc68993810
 prepare tid
 inst load success
 start inst_dispatch thread
 start core thread
 ld
 0
-core 0 load 7ffcdffec6d0 to %rd4
-core 1 load 7ffcdffec6d0 to %rd4
-core 2 load 7ffcdffec6d0 to %rd4
-core 3 load 7ffcdffec6d0 to %rd4
-core 4 load 7ffcdffec6d0 to %rd4
-core 5 load 7ffcdffec6d0 to %rd4
-core 6 load 7ffcdffec6d0 to %rd4
-core 7 load 7ffcdffec6d0 to %rd4
-core 8 load 7ffcdffec6d0 to %rd4
-core 9 load 7ffcdffec6d0 to %rd4
-core a load 7ffcdffec6d0 to %rd4
-core b load 7ffcdffec6d0 to %rd4
-core c load 7ffcdffec6d0 to %rd4
-core d load 7ffcdffec6d0 to %rd4
-core e load 7ffcdffec6d0 to %rd4
-core f load 7ffcdffec6d0 to %rd4
-core 10 load 7ffcdffec6d0 to %rd4
-core 11 load 7ffcdffec6d0 to %rd4
-core 12 load 7ffcdffec6d0 to %rd4
-core 13 load 7ffcdffec6d0 to %rd4
-core 14 load 7ffcdffec6d0 to %rd4
-core 15 load 7ffcdffec6d0 to %rd4
-core 16 load 7ffcdffec6d0 to %rd4
-core 17 load 7ffcdffec6d0 to %rd4
-core 18 load 7ffcdffec6d0 to %rd4
-core 19 load 7ffcdffec6d0 to %rd4
-core 1a load 7ffcdffec6d0 to %rd4
-core 1b load 7ffcdffec6d0 to %rd4
-core 1c load 7ffcdffec6d0 to %rd4
-core 1d load 7ffcdffec6d0 to %rd4
-core 1e load 7ffcdffec6d0 to %rd4
-core 1f load 7ffcdffec6d0 to %rd4
+core 0 load 7ffc68993710 to %rd4
+core 1 load 7ffc68993710 to %rd4
+core 2 load 7ffc68993710 to %rd4
+core 3 load 7ffc68993710 to %rd4
+core 4 load 7ffc68993710 to %rd4
+core 5 load 7ffc68993710 to %rd4
+core 6 load 7ffc68993710 to %rd4
+core 7 load 7ffc68993710 to %rd4
+core 8 load 7ffc68993710 to %rd4
+core 9 load 7ffc68993710 to %rd4
+core a load 7ffc68993710 to %rd4
+core b load 7ffc68993710 to %rd4
+core c load 7ffc68993710 to %rd4
+core d load 7ffc68993710 to %rd4
+core e load 7ffc68993710 to %rd4
+core f load 7ffc68993710 to %rd4
+core 10 load 7ffc68993710 to %rd4
+core 11 load 7ffc68993710 to %rd4
+core 12 load 7ffc68993710 to %rd4
+core 13 load 7ffc68993710 to %rd4
+core 14 load 7ffc68993710 to %rd4
+core 15 load 7ffc68993710 to %rd4
+core 16 load 7ffc68993710 to %rd4
+core 17 load 7ffc68993710 to %rd4
+core 18 load 7ffc68993710 to %rd4
+core 19 load 7ffc68993710 to %rd4
+core 1a load 7ffc68993710 to %rd4
+core 1b load 7ffc68993710 to %rd4
+core 1c load 7ffc68993710 to %rd4
+core 1d load 7ffc68993710 to %rd4
+core 1e load 7ffc68993710 to %rd4
+core 1f load 7ffc68993710 to %rd4
 pc is 1
 ld
 0
-core 0 load 7ffcdffec750 to %rd5
-core 1 load 7ffcdffec750 to %rd5
-core 2 load 7ffcdffec750 to %rd5
-core 3 load 7ffcdffec750 to %rd5
-core 4 load 7ffcdffec750 to %rd5
-core 5 load 7ffcdffec750 to %rd5
-core 6 load 7ffcdffec750 to %rd5
-core 7 load 7ffcdffec750 to %rd5
-core 8 load 7ffcdffec750 to %rd5
-core 9 load 7ffcdffec750 to %rd5
-core a load 7ffcdffec750 to %rd5
-core b load 7ffcdffec750 to %rd5
-core c load 7ffcdffec750 to %rd5
-core d load 7ffcdffec750 to %rd5
-core e load 7ffcdffec750 to %rd5
-core f load 7ffcdffec750 to %rd5
-core 10 load 7ffcdffec750 to %rd5
-core 11 load 7ffcdffec750 to %rd5
-core 12 load 7ffcdffec750 to %rd5
-core 13 load 7ffcdffec750 to %rd5
-core 14 load 7ffcdffec750 to %rd5
-core 15 load 7ffcdffec750 to %rd5
-core 16 load 7ffcdffec750 to %rd5
-core 17 load 7ffcdffec750 to %rd5
-core 18 load 7ffcdffec750 to %rd5
-core 19 load 7ffcdffec750 to %rd5
-core 1a load 7ffcdffec750 to %rd5
-core 1b load 7ffcdffec750 to %rd5
-core 1c load 7ffcdffec750 to %rd5
-core 1d load 7ffcdffec750 to %rd5
-core 1e load 7ffcdffec750 to %rd5
-core 1f load 7ffcdffec750 to %rd5
+core 0 load 7ffc68993810 to %rd5
+core 1 load 7ffc68993810 to %rd5
+core 2 load 7ffc68993810 to %rd5
+core 3 load 7ffc68993810 to %rd5
+core 4 load 7ffc68993810 to %rd5
+core 5 load 7ffc68993810 to %rd5
+core 6 load 7ffc68993810 to %rd5
+core 7 load 7ffc68993810 to %rd5
+core 8 load 7ffc68993810 to %rd5
+core 9 load 7ffc68993810 to %rd5
+core a load 7ffc68993810 to %rd5
+core b load 7ffc68993810 to %rd5
+core c load 7ffc68993810 to %rd5
+core d load 7ffc68993810 to %rd5
+core e load 7ffc68993810 to %rd5
+core f load 7ffc68993810 to %rd5
+core 10 load 7ffc68993810 to %rd5
+core 11 load 7ffc68993810 to %rd5
+core 12 load 7ffc68993810 to %rd5
+core 13 load 7ffc68993810 to %rd5
+core 14 load 7ffc68993810 to %rd5
+core 15 load 7ffc68993810 to %rd5
+core 16 load 7ffc68993810 to %rd5
+core 17 load 7ffc68993810 to %rd5
+core 18 load 7ffc68993810 to %rd5
+core 19 load 7ffc68993810 to %rd5
+core 1a load 7ffc68993810 to %rd5
+core 1b load 7ffc68993810 to %rd5
+core 1c load 7ffc68993810 to %rd5
+core 1d load 7ffc68993810 to %rd5
+core 1e load 7ffc68993810 to %rd5
+core 1f load 7ffc68993810 to %rd5
 pc is 2
 cvta
 0
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
-cvta %rd5 to %rd1 7ffcdffec750 to 18
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
+cvta %rd5 to %rd1 7ffc68993810 to 14
 pc is 3
 mov
 0
-mov %tid.x to %r1 0 to 12
-mov %tid.x to %r1 1 to 12
-mov %tid.x to %r1 2 to 12
-mov %tid.x to %r1 3 to 12
-mov %tid.x to %r1 4 to 12
-mov %tid.x to %r1 5 to 12
-mov %tid.x to %r1 6 to 12
-mov %tid.x to %r1 7 to 12
-mov %tid.x to %r1 8 to 12
-mov %tid.x to %r1 9 to 12
-mov %tid.x to %r1 a to 12
-mov %tid.x to %r1 b to 12
-mov %tid.x to %r1 c to 12
-mov %tid.x to %r1 d to 12
-mov %tid.x to %r1 e to 12
-mov %tid.x to %r1 f to 12
-mov %tid.x to %r1 10 to 12
-mov %tid.x to %r1 11 to 12
-mov %tid.x to %r1 12 to 12
-mov %tid.x to %r1 13 to 12
-mov %tid.x to %r1 14 to 12
-mov %tid.x to %r1 15 to 12
-mov %tid.x to %r1 16 to 12
-mov %tid.x to %r1 17 to 12
-mov %tid.x to %r1 18 to 12
-mov %tid.x to %r1 19 to 12
-mov %tid.x to %r1 1a to 12
-mov %tid.x to %r1 1b to 12
-mov %tid.x to %r1 1c to 12
-mov %tid.x to %r1 1d to 12
-mov %tid.x to %r1 1e to 12
-mov %tid.x to %r1 1f to 12
+mov %tid.x to %r1 0 to 5
+mov %tid.x to %r1 1 to 5
+mov %tid.x to %r1 2 to 5
+mov %tid.x to %r1 3 to 5
+mov %tid.x to %r1 4 to 5
+mov %tid.x to %r1 5 to 5
+mov %tid.x to %r1 6 to 5
+mov %tid.x to %r1 7 to 5
+mov %tid.x to %r1 8 to 5
+mov %tid.x to %r1 9 to 5
+mov %tid.x to %r1 a to 5
+mov %tid.x to %r1 b to 5
+mov %tid.x to %r1 c to 5
+mov %tid.x to %r1 d to 5
+mov %tid.x to %r1 e to 5
+mov %tid.x to %r1 f to 5
+mov %tid.x to %r1 10 to 5
+mov %tid.x to %r1 11 to 5
+mov %tid.x to %r1 12 to 5
+mov %tid.x to %r1 13 to 5
+mov %tid.x to %r1 14 to 5
+mov %tid.x to %r1 15 to 5
+mov %tid.x to %r1 16 to 5
+mov %tid.x to %r1 17 to 5
+mov %tid.x to %r1 18 to 5
+mov %tid.x to %r1 19 to 5
+mov %tid.x to %r1 1a to 5
+mov %tid.x to %r1 1b to 5
+mov %tid.x to %r1 1c to 5
+mov %tid.x to %r1 1d to 5
+mov %tid.x to %r1 1e to 5
+mov %tid.x to %r1 1f to 5
 pc is 4
 setp
 0
-setp 0 f
-setp 1 f
-setp 2 f
-setp 3 f
-setp 4 f
-setp 5 f
-setp 6 f
-setp 7 f
-setp 8 f
-setp 9 f
-setp a f
-setp b f
-setp c f
-setp d f
-setp e f
-setp f f
-setp 10 f
-setp 11 f
-setp 12 f
-setp 13 f
-setp 14 f
-setp 15 f
-setp 16 f
-setp 17 f
-setp 18 f
-setp 19 f
-setp 1a f
-setp 1b f
-setp 1c f
-setp 1d f
-setp 1e f
-setp 1f f
+setp 0 0
+setp 1 0
+setp 2 0
+setp 3 0
+setp 4 0
+setp 5 0
+setp 6 0
+setp 7 0
+setp 8 0
+setp 9 0
+setp a 0
+setp b 0
+setp c 0
+setp d 0
+setp e 0
+setp f 0
+setp 10 0
+setp 11 0
+setp 12 0
+setp 13 0
+setp 14 0
+setp 15 0
+setp 16 0
+setp 17 0
+setp 18 0
+setp 19 0
+setp 1a 0
+setp 1b 0
+setp 1c 0
+setp 1d 0
+setp 1e 0
+setp 1f 0
 pc is 5
 cvta
 0
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
-cvta %rd4 to %rd6 7ffcdffec6d0 to 1d
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
+cvta %rd4 to %rd6 7ffc68993710 to 19
 pc is 6
 mul
 0
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
-mul
+mul0 0 8
+mul8 1 8
+mul10 2 8
+mul18 3 8
+mul20 4 8
+mul28 5 8
+mul30 6 8
+mul38 7 8
+mul40 8 8
+mul48 9 8
+mul50 a 8
+mul58 b 8
+mul60 c 8
+mul68 d 8
+mul70 e 8
+mul78 f 8
+mul80 10 8
+mul88 11 8
+mul90 12 8
+mul98 13 8
+mula0 14 8
+mula8 15 8
+mulb0 16 8
+mulb8 17 8
+mulc0 18 8
+mulc8 19 8
+muld0 1a 8
+muld8 1b 8
+mule0 1c 8
+mule8 1d 8
+mulf0 1e 8
+mulf8 1f 8
 pc is 7
 add
 0
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
+add long result is 7ffc68993710
+add long result is 7ffc68993718
+add long result is 7ffc68993720
+add long result is 7ffc68993728
+add long result is 7ffc68993730
+add long result is 7ffc68993738
+add long result is 7ffc68993740
+add long result is 7ffc68993748
+add long result is 7ffc68993750
+add long result is 7ffc68993758
+add long result is 7ffc68993760
+add long result is 7ffc68993768
+add long result is 7ffc68993770
+add long result is 7ffc68993778
+add long result is 7ffc68993780
+add long result is 7ffc68993788
+add long result is 7ffc68993790
+add long result is 7ffc68993798
+add long result is 7ffc689937a0
+add long result is 7ffc689937a8
+add long result is 7ffc689937b0
+add long result is 7ffc689937b8
+add long result is 7ffc689937c0
+add long result is 7ffc689937c8
+add long result is 7ffc689937d0
+add long result is 7ffc689937d8
+add long result is 7ffc689937e0
+add long result is 7ffc689937e8
+add long result is 7ffc689937f0
+add long result is 7ffc689937f8
+add long result is 7ffc68993800
+add long result is 7ffc68993808
 pc is 8
 add
 0
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
+add long result is 7ffc68993810
+add long result is 7ffc68993818
+add long result is 7ffc68993820
+add long result is 7ffc68993828
+add long result is 7ffc68993830
+add long result is 7ffc68993838
+add long result is 7ffc68993840
+add long result is 7ffc68993848
+add long result is 7ffc68993850
+add long result is 7ffc68993858
+add long result is 7ffc68993860
+add long result is 7ffc68993868
+add long result is 7ffc68993870
+add long result is 7ffc68993878
+add long result is 7ffc68993880
+add long result is 7ffc68993888
+add long result is 7ffc68993890
+add long result is 7ffc68993898
+add long result is 7ffc689938a0
+add long result is 7ffc689938a8
+add long result is 7ffc689938b0
+add long result is 7ffc689938b8
+add long result is 7ffc689938c0
+add long result is 7ffc689938c8
+add long result is 7ffc689938d0
+add long result is 7ffc689938d8
+add long result is 7ffc689938e0
+add long result is 7ffc689938e8
+add long result is 7ffc689938f0
+add long result is 7ffc689938f8
+add long result is 7ffc68993900
+add long result is 7ffc68993908
 pc is 9
 bra
 1
 pred bra//////////////////////////////
+change mask
+1
 pc is a
 mov
 0
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
-imm ffffffffbf800000 to %r2
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
+imm bff0000000000000 to %rd8
 pc is b
 st
 0
-st %r2 to [%rd2]
-0x7ffcdffec6d0
-st %r2 to [%rd2]
-0x7ffcdffec6d4
-st %r2 to [%rd2]
-0x7ffcdffec6d8
-st %r2 to [%rd2]
-0x7ffcdffec6dc
-st %r2 to [%rd2]
-0x7ffcdffec6e0
-st %r2 to [%rd2]
-0x7ffcdffec6e4
-st %r2 to [%rd2]
-0x7ffcdffec6e8
-st %r2 to [%rd2]
-0x7ffcdffec6ec
-st %r2 to [%rd2]
-0x7ffcdffec6f0
-st %r2 to [%rd2]
-0x7ffcdffec6f4
-st %r2 to [%rd2]
-0x7ffcdffec6f8
-st %r2 to [%rd2]
-0x7ffcdffec6fc
-st %r2 to [%rd2]
-0x7ffcdffec700
-st %r2 to [%rd2]
-0x7ffcdffec704
-st %r2 to [%rd2]
-0x7ffcdffec708
-st %r2 to [%rd2]
-0x7ffcdffec710
-st %r2 to [%rd2]
-0x7ffcdffec714
-st %r2 to [%rd2]
-0x7ffcdffec718
-st %r2 to [%rd2]
-0x7ffcdffec71c
-st %r2 to [%rd2]
-0x7ffcdffec720
-st %r2 to [%rd2]
-0x7ffcdffec724
-st %r2 to [%rd2]
-0x7ffcdffec728
-st %r2 to [%rd2]
-0x7ffcdffec72c
-st %r2 to [%rd2]
-0x7ffcdffec730
-st %r2 to [%rd2]
-0x7ffcdffec734
-st %r2 to [%rd2]
-0x7ffcdffec738
-st %r2 to [%rd2]
-0x7ffcdffec73c
-st %r2 to [%rd2]
-0x7ffcdffec740
-st %r2 to [%rd2]
-0x7ffcdffec744
-st %r2 to [%rd2]
-0x7ffcdffec748
-st %r2 to [%rd2]
-0x7ffcdffec74c
+st %rd8 to [%rd2]
+0x7ffc68993718
+st %rd8 to [%rd2]
+0x7ffc68993720
+st %rd8 to [%rd2]
+0x7ffc68993728
+st %rd8 to [%rd2]
+0x7ffc68993730
+st %rd8 to [%rd2]
+0x7ffc68993738
+st %rd8 to [%rd2]
+0x7ffc68993740
+st %rd8 to [%rd2]
+0x7ffc68993748
+st %rd8 to [%rd2]
+0x7ffc68993750
+st %rd8 to [%rd2]
+0x7ffc68993758
+st %rd8 to [%rd2]
+0x7ffc68993760
+st %rd8 to [%rd2]
+0x7ffc68993768
+st %rd8 to [%rd2]
+0x7ffc68993770
+st %rd8 to [%rd2]
+0x7ffc68993778
+st %rd8 to [%rd2]
+0x7ffc68993780
+st %rd8 to [%rd2]
+0x7ffc68993788
+st %rd8 to [%rd2]
+0x7ffc68993790
+st %rd8 to [%rd2]
+0x7ffc68993798
+st %rd8 to [%rd2]
+0x7ffc689937a0
+st %rd8 to [%rd2]
+0x7ffc689937a8
+st %rd8 to [%rd2]
+0x7ffc689937b0
+st %rd8 to [%rd2]
+0x7ffc689937b8
+st %rd8 to [%rd2]
+0x7ffc689937c0
+st %rd8 to [%rd2]
+0x7ffc689937c8
+st %rd8 to [%rd2]
+0x7ffc689937d0
+st %rd8 to [%rd2]
+0x7ffc689937d8
+st %rd8 to [%rd2]
+0x7ffc689937e0
+st %rd8 to [%rd2]
+0x7ffc689937e8
+st %rd8 to [%rd2]
+0x7ffc689937f0
+st %rd8 to [%rd2]
+0x7ffc689937f8
+st %rd8 to [%rd2]
+0x7ffc68993800
+st %rd8 to [%rd2]
+0x7ffc68993808
 pc is c
 mov
 0
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
-imm ffffffffc0000000 to %r3
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
+imm c000000000000000 to %rd9
 pc is d
 st
 0
-st %r3 to [%rd3]
-0x7ffcdffec750
-st %r3 to [%rd3]
-0x7ffcdffec754
-st %r3 to [%rd3]
-0x7ffcdffec758
-st %r3 to [%rd3]
-0x7ffcdffec75c
-st %r3 to [%rd3]
-0x7ffcdffec760
-st %r3 to [%rd3]
-0x7ffcdffec764
-st %r3 to [%rd3]
-0x7ffcdffec768
-st %r3 to [%rd3]
-0x7ffcdffec76c
-st %r3 to [%rd3]
-0x7ffcdffec770
-st %r3 to [%rd3]
-0x7ffcdffec774
-st %r3 to [%rd3]
-0x7ffcdffec778
-st %r3 to [%rd3]
-0x7ffcdffec77c
-st %r3 to [%rd3]
-0x7ffcdffec780
-st %r3 to [%rd3]
-0x7ffcdffec784
-st %r3 to [%rd3]
-0x7ffcdffec788
-st %r3 to [%rd3]
-0x7ffcdffec790
-st %r3 to [%rd3]
-0x7ffcdffec794
-st %r3 to [%rd3]
-0x7ffcdffec798
-st %r3 to [%rd3]
-0x7ffcdffec79c
-st %r3 to [%rd3]
-0x7ffcdffec7a0
-st %r3 to [%rd3]
-0x7ffcdffec7a4
-st %r3 to [%rd3]
-0x7ffcdffec7a8
-st %r3 to [%rd3]
-0x7ffcdffec7ac
-st %r3 to [%rd3]
-0x7ffcdffec7b0
-st %r3 to [%rd3]
-0x7ffcdffec7b4
-st %r3 to [%rd3]
-0x7ffcdffec7b8
-st %r3 to [%rd3]
-0x7ffcdffec7bc
-st %r3 to [%rd3]
-0x7ffcdffec7c0
-st %r3 to [%rd3]
-0x7ffcdffec7c4
-st %r3 to [%rd3]
-0x7ffcdffec7c8
-st %r3 to [%rd3]
-0x7ffcdffec7cc
+st %rd9 to [%rd3]
+0x7ffc68993818
+st %rd9 to [%rd3]
+0x7ffc68993820
+st %rd9 to [%rd3]
+0x7ffc68993828
+st %rd9 to [%rd3]
+0x7ffc68993830
+st %rd9 to [%rd3]
+0x7ffc68993838
+st %rd9 to [%rd3]
+0x7ffc68993840
+st %rd9 to [%rd3]
+0x7ffc68993848
+st %rd9 to [%rd3]
+0x7ffc68993850
+st %rd9 to [%rd3]
+0x7ffc68993858
+st %rd9 to [%rd3]
+0x7ffc68993860
+st %rd9 to [%rd3]
+0x7ffc68993868
+st %rd9 to [%rd3]
+0x7ffc68993870
+st %rd9 to [%rd3]
+0x7ffc68993878
+st %rd9 to [%rd3]
+0x7ffc68993880
+st %rd9 to [%rd3]
+0x7ffc68993888
+st %rd9 to [%rd3]
+0x7ffc68993890
+st %rd9 to [%rd3]
+0x7ffc68993898
+st %rd9 to [%rd3]
+0x7ffc689938a0
+st %rd9 to [%rd3]
+0x7ffc689938a8
+st %rd9 to [%rd3]
+0x7ffc689938b0
+st %rd9 to [%rd3]
+0x7ffc689938b8
+st %rd9 to [%rd3]
+0x7ffc689938c0
+st %rd9 to [%rd3]
+0x7ffc689938c8
+st %rd9 to [%rd3]
+0x7ffc689938d0
+st %rd9 to [%rd3]
+0x7ffc689938d8
+st %rd9 to [%rd3]
+0x7ffc689938e0
+st %rd9 to [%rd3]
+0x7ffc689938e8
+st %rd9 to [%rd3]
+0x7ffc689938f0
+st %rd9 to [%rd3]
+0x7ffc689938f8
+st %rd9 to [%rd3]
+0x7ffc68993900
+st %rd9 to [%rd3]
+0x7ffc68993908
 pc is e
 mov
 0
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
-imm c0000000 to %f12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
+imm c000000000000000 to %fd12
 pc is f
 mov
 0
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
-imm bf800000 to %f11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
+imm bff0000000000000 to %fd11
 pc is 10
 bra
 0
 ///////////uni bra to18/////////////
+pc is 17
+ld
+0
+core 1 load bff0000000000000 to %fd7
+core 2 load bff0000000000000 to %fd7
+core 3 load bff0000000000000 to %fd7
+core 4 load bff0000000000000 to %fd7
+core 5 load bff0000000000000 to %fd7
+core 6 load bff0000000000000 to %fd7
+core 7 load bff0000000000000 to %fd7
+core 8 load bff0000000000000 to %fd7
+core 9 load bff0000000000000 to %fd7
+core a load bff0000000000000 to %fd7
+core b load bff0000000000000 to %fd7
+core c load bff0000000000000 to %fd7
+core d load bff0000000000000 to %fd7
+core e load bff0000000000000 to %fd7
+core f load bff0000000000000 to %fd7
+core 10 load bff0000000000000 to %fd7
+core 11 load bff0000000000000 to %fd7
+core 12 load bff0000000000000 to %fd7
+core 13 load bff0000000000000 to %fd7
+core 14 load bff0000000000000 to %fd7
+core 15 load bff0000000000000 to %fd7
+core 16 load bff0000000000000 to %fd7
+core 17 load bff0000000000000 to %fd7
+core 18 load bff0000000000000 to %fd7
+core 19 load bff0000000000000 to %fd7
+core 1a load bff0000000000000 to %fd7
+core 1b load bff0000000000000 to %fd7
+core 1c load bff0000000000000 to %fd7
+core 1d load bff0000000000000 to %fd7
+core 1e load bff0000000000000 to %fd7
+core 1f load bff0000000000000 to %fd7
 pc is 18
 add
 0
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
+add double result is -2
+bff0000000000000 bff0000000000000
 pc is 19
 st
 0
-st %f8 to [%rd2]
-0x7ffcdffec6d0
-st %f8 to [%rd2]
-0x7ffcdffec6d4
-st %f8 to [%rd2]
-0x7ffcdffec6d8
-st %f8 to [%rd2]
-0x7ffcdffec6dc
-st %f8 to [%rd2]
-0x7ffcdffec6e0
-st %f8 to [%rd2]
-0x7ffcdffec6e4
-st %f8 to [%rd2]
-0x7ffcdffec6e8
-st %f8 to [%rd2]
-0x7ffcdffec6ec
-st %f8 to [%rd2]
-0x7ffcdffec6f0
-st %f8 to [%rd2]
-0x7ffcdffec6f4
-st %f8 to [%rd2]
-0x7ffcdffec6f8
-st %f8 to [%rd2]
-0x7ffcdffec6fc
-st %f8 to [%rd2]
-0x7ffcdffec700
-st %f8 to [%rd2]
-0x7ffcdffec704
-st %f8 to [%rd2]
-0x7ffcdffec708
-st %f8 to [%rd2]
-0x7ffcdffec710
-st %f8 to [%rd2]
-0x7ffcdffec714
-st %f8 to [%rd2]
-0x7ffcdffec718
-st %f8 to [%rd2]
-0x7ffcdffec71c
-st %f8 to [%rd2]
-0x7ffcdffec720
-st %f8 to [%rd2]
-0x7ffcdffec724
-st %f8 to [%rd2]
-0x7ffcdffec728
-st %f8 to [%rd2]
-0x7ffcdffec72c
-st %f8 to [%rd2]
-0x7ffcdffec730
-st %f8 to [%rd2]
-0x7ffcdffec734
-st %f8 to [%rd2]
-0x7ffcdffec738
-st %f8 to [%rd2]
-0x7ffcdffec73c
-st %f8 to [%rd2]
-0x7ffcdffec740
-st %f8 to [%rd2]
-0x7ffcdffec744
-st %f8 to [%rd2]
-0x7ffcdffec748
-st %f8 to [%rd2]
-0x7ffcdffec74c
+st %fd8 to [%rd2]
+0x7ffc68993718
+st %fd8 to [%rd2]
+0x7ffc68993720
+st %fd8 to [%rd2]
+0x7ffc68993728
+st %fd8 to [%rd2]
+0x7ffc68993730
+st %fd8 to [%rd2]
+0x7ffc68993738
+st %fd8 to [%rd2]
+0x7ffc68993740
+st %fd8 to [%rd2]
+0x7ffc68993748
+st %fd8 to [%rd2]
+0x7ffc68993750
+st %fd8 to [%rd2]
+0x7ffc68993758
+st %fd8 to [%rd2]
+0x7ffc68993760
+st %fd8 to [%rd2]
+0x7ffc68993768
+st %fd8 to [%rd2]
+0x7ffc68993770
+st %fd8 to [%rd2]
+0x7ffc68993778
+st %fd8 to [%rd2]
+0x7ffc68993780
+st %fd8 to [%rd2]
+0x7ffc68993788
+st %fd8 to [%rd2]
+0x7ffc68993790
+st %fd8 to [%rd2]
+0x7ffc68993798
+st %fd8 to [%rd2]
+0x7ffc689937a0
+st %fd8 to [%rd2]
+0x7ffc689937a8
+st %fd8 to [%rd2]
+0x7ffc689937b0
+st %fd8 to [%rd2]
+0x7ffc689937b8
+st %fd8 to [%rd2]
+0x7ffc689937c0
+st %fd8 to [%rd2]
+0x7ffc689937c8
+st %fd8 to [%rd2]
+0x7ffc689937d0
+st %fd8 to [%rd2]
+0x7ffc689937d8
+st %fd8 to [%rd2]
+0x7ffc689937e0
+st %fd8 to [%rd2]
+0x7ffc689937e8
+st %fd8 to [%rd2]
+0x7ffc689937f0
+st %fd8 to [%rd2]
+0x7ffc689937f8
+st %fd8 to [%rd2]
+0x7ffc68993800
+st %fd8 to [%rd2]
+0x7ffc68993808
 pc is 1a
 ld
 0
-core 0 load c000000000000000 to %f9
-core 1 load c0000000c0000000 to %f9
-core 2 load c0000000c0000000 to %f9
-core 3 load c0000000c0000000 to %f9
-core 4 load c0000000c0000000 to %f9
-core 5 load c0000000c0000000 to %f9
-core 6 load c0000000c0000000 to %f9
-core 7 load c0000000c0000000 to %f9
-core 8 load c0000000c0000000 to %f9
-core 9 load c0000000c0000000 to %f9
-core a load c0000000c0000000 to %f9
-core b load c0000000c0000000 to %f9
-core c load c0000000c0000000 to %f9
-core d load c0000000c0000000 to %f9
-core e load ffffffffc0000000 to %f9
-core 10 load c0000000c0000000 to %f9
-core 11 load c0000000c0000000 to %f9
-core 12 load c0000000c0000000 to %f9
-core 13 load c0000000c0000000 to %f9
-core 14 load c0000000c0000000 to %f9
-core 15 load c0000000c0000000 to %f9
-core 16 load c0000000c0000000 to %f9
-core 17 load c0000000c0000000 to %f9
-core 18 load c0000000c0000000 to %f9
-core 19 load c0000000c0000000 to %f9
-core 1a load c0000000c0000000 to %f9
-core 1b load c0000000c0000000 to %f9
-core 1c load c0000000c0000000 to %f9
-core 1d load c0000000c0000000 to %f9
-core 1e load c0000000c0000000 to %f9
-core 1f load ffffffffc0000000 to %f9
+core 1 load c000000000000000 to %fd9
+core 2 load c000000000000000 to %fd9
+core 3 load c000000000000000 to %fd9
+core 4 load c000000000000000 to %fd9
+core 5 load c000000000000000 to %fd9
+core 6 load c000000000000000 to %fd9
+core 7 load c000000000000000 to %fd9
+core 8 load c000000000000000 to %fd9
+core 9 load c000000000000000 to %fd9
+core a load c000000000000000 to %fd9
+core b load c000000000000000 to %fd9
+core c load c000000000000000 to %fd9
+core d load c000000000000000 to %fd9
+core e load c000000000000000 to %fd9
+core f load c000000000000000 to %fd9
+core 10 load c000000000000000 to %fd9
+core 11 load c000000000000000 to %fd9
+core 12 load c000000000000000 to %fd9
+core 13 load c000000000000000 to %fd9
+core 14 load c000000000000000 to %fd9
+core 15 load c000000000000000 to %fd9
+core 16 load c000000000000000 to %fd9
+core 17 load c000000000000000 to %fd9
+core 18 load c000000000000000 to %fd9
+core 19 load c000000000000000 to %fd9
+core 1a load c000000000000000 to %fd9
+core 1b load c000000000000000 to %fd9
+core 1c load c000000000000000 to %fd9
+core 1d load c000000000000000 to %fd9
+core 1e load c000000000000000 to %fd9
+core 1f load c000000000000000 to %fd9
 pc is 1b
 add
 0
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
-add
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
+add double result is -4
+c000000000000000 c000000000000000
 pc is 1c
 st
 0
-st %f10 to [%rd3]
-0x7ffcdffec750
-st %f10 to [%rd3]
-0x7ffcdffec754
-st %f10 to [%rd3]
-0x7ffcdffec758
-st %f10 to [%rd3]
-0x7ffcdffec75c
-st %f10 to [%rd3]
-0x7ffcdffec760
-st %f10 to [%rd3]
-0x7ffcdffec764
-st %f10 to [%rd3]
-0x7ffcdffec768
-st %f10 to [%rd3]
-0x7ffcdffec76c
-st %f10 to [%rd3]
-0x7ffcdffec770
-st %f10 to [%rd3]
-0x7ffcdffec774
-st %f10 to [%rd3]
-0x7ffcdffec778
-st %f10 to [%rd3]
-0x7ffcdffec77c
-st %f10 to [%rd3]
-0x7ffcdffec780
-st %f10 to [%rd3]
-0x7ffcdffec784
-st %f10 to [%rd3]
-0x7ffcdffec788
-st %f10 to [%rd3]
-0x7ffcdffec790
-st %f10 to [%rd3]
-0x7ffcdffec794
-st %f10 to [%rd3]
-0x7ffcdffec798
-st %f10 to [%rd3]
-0x7ffcdffec79c
-st %f10 to [%rd3]
-0x7ffcdffec7a0
-st %f10 to [%rd3]
-0x7ffcdffec7a4
-st %f10 to [%rd3]
-0x7ffcdffec7a8
-st %f10 to [%rd3]
-0x7ffcdffec7ac
-st %f10 to [%rd3]
-0x7ffcdffec7b0
-st %f10 to [%rd3]
-0x7ffcdffec7b4
-st %f10 to [%rd3]
-0x7ffcdffec7b8
-st %f10 to [%rd3]
-0x7ffcdffec7bc
-st %f10 to [%rd3]
-0x7ffcdffec7c0
-st %f10 to [%rd3]
-0x7ffcdffec7c4
-st %f10 to [%rd3]
-0x7ffcdffec7c8
-st %f10 to [%rd3]
-0x7ffcdffec7cc
+st %fd10 to [%rd3]
+0x7ffc68993818
+st %fd10 to [%rd3]
+0x7ffc68993820
+st %fd10 to [%rd3]
+0x7ffc68993828
+st %fd10 to [%rd3]
+0x7ffc68993830
+st %fd10 to [%rd3]
+0x7ffc68993838
+st %fd10 to [%rd3]
+0x7ffc68993840
+st %fd10 to [%rd3]
+0x7ffc68993848
+st %fd10 to [%rd3]
+0x7ffc68993850
+st %fd10 to [%rd3]
+0x7ffc68993858
+st %fd10 to [%rd3]
+0x7ffc68993860
+st %fd10 to [%rd3]
+0x7ffc68993868
+st %fd10 to [%rd3]
+0x7ffc68993870
+st %fd10 to [%rd3]
+0x7ffc68993878
+st %fd10 to [%rd3]
+0x7ffc68993880
+st %fd10 to [%rd3]
+0x7ffc68993888
+st %fd10 to [%rd3]
+0x7ffc68993890
+st %fd10 to [%rd3]
+0x7ffc68993898
+st %fd10 to [%rd3]
+0x7ffc689938a0
+st %fd10 to [%rd3]
+0x7ffc689938a8
+st %fd10 to [%rd3]
+0x7ffc689938b0
+st %fd10 to [%rd3]
+0x7ffc689938b8
+st %fd10 to [%rd3]
+0x7ffc689938c0
+st %fd10 to [%rd3]
+0x7ffc689938c8
+st %fd10 to [%rd3]
+0x7ffc689938d0
+st %fd10 to [%rd3]
+0x7ffc689938d8
+st %fd10 to [%rd3]
+0x7ffc689938e0
+st %fd10 to [%rd3]
+0x7ffc689938e8
+st %fd10 to [%rd3]
+0x7ffc689938f0
+st %fd10 to [%rd3]
+0x7ffc689938f8
+st %fd10 to [%rd3]
+0x7ffc68993900
+st %fd10 to [%rd3]
+0x7ffc68993908
 pc is 1d
 ret
 0
@@ -864,191 +997,193 @@ pc is 1d
 here
 mov
 0
-imm 40000000 to %r4
+imm 4000000000000000 to %rd10
 pc is 12
 st
 0
-st %r4 to [%rd2]
-0x7ffcdffec70c
+st %rd10 to [%rd2]
+0x7ffc68993710
 pc is 13
 mov
 0
-imm 40a00000 to %r5
+imm 4014000000000000 to %rd11
 pc is 14
 st
 0
-st %r5 to [%rd1]
-0x7ffcdffec750
+st %rd11 to [%rd1]
+0x7ffc68993810
 pc is 15
 mov
 0
-imm 40a00000 to %f12
+imm 4014000000000000 to %fd12
 pc is 16
 mov
 0
-imm 40000000 to %f11
+imm 4000000000000000 to %fd11
 pc is 17
 ld
 0
-core f load 40000000 to %f7
+core 0 load 4000000000000000 to %fd7
 pc is 18
 add
 0
-add
+add double result is 4
+4000000000000000 4000000000000000
 pc is 19
 st
 0
-st %f8 to [%rd2]
-0x7ffcdffec70c
+st %fd8 to [%rd2]
+0x7ffc68993710
 pc is 1a
 ld
 0
-core f load 8000000000000000 to %f9
+core 0 load 4014000000000000 to %fd9
 pc is 1b
 add
 0
-add
+add double result is 10
+4014000000000000 4014000000000000
 pc is 1c
 st
 0
-st %f10 to [%rd3]
-0x7ffcdffec78c
+st %fd10 to [%rd3]
+0x7ffc68993810
 pc is 1d
 ret
 0
 pc is 1d
 inst exit
 core exit
-1
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-bf800000
-c0000000c0000000
-c000000180000000
-bf800000
-c0000000
-0
-1
-ffffffffbf800000
-ffffffffc0000000
-0
-0
-0
-7ffcdffec750
-7ffcdffec6d4
-7ffcdffec754
-7ffcdffec6d0
-7ffcdffec750
-7ffcdffec6d0
-4
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
+0 0
+1 0
+2 0
+3 0
+4 0
+5 0
+6 0
+7 0
+8 0
+9 0
+a 0
+b 0
+c 0
+d 4000000000000000
+e 4010000000000000
+f 4014000000000000
+10 4024000000000000
+11 4000000000000000
+12 4014000000000000
+13 0
+14 7ffc68993810
+15 7ffc68993710
+16 7ffc68993810
+17 7ffc68993710
+18 7ffc68993810
+19 7ffc68993710
+1a 0
+1b 0
+1c 0
+1d 4000000000000000
+1e 4014000000000000
+1f 0
+20 0
+21 0
+22 0
+23 0
+24 0
+25 0
+26 0
+27 0
+28 0
+29 0
+2a 0
+2b 0
+2c 0
+2d 0
+2e 0
+2f 0
+30 0
+31 0
+32 0
+33 0
+34 0
+35 0
+36 0
+37 0
+38 0
+39 0
+3a 0
+3b 0
+3c 0
+3d 0
+3e 0
+3f 0
+40 0
+41 0
+42 0
 all thread exit
-0: -1
-1: -1
-2: -1
-3: -1
-4: -1
-5: -1
-6: -1
-7: -1
-8: -1
-9: -1
-a: -1
-b: -1
-c: -1
-d: -1
-e: -1
-f: -0
-10: 0
-11: -1
-12: -1
-13: -1
-14: -1
-15: -1
-16: -1
-17: -1
-18: -1
-19: -1
-1a: -1
-1b: -1
-1c: -1
-1d: -1
-1e: -1
-1f: -1
+0: 4
+1: -2
+2: -2
+3: -2
+4: -2
+5: -2
+6: -2
+7: -2
+8: -2
+9: -2
+a: -2
+b: -2
+c: -2
+d: -2
+e: -2
+f: -2
+10: -2
+11: -2
+12: -2
+13: -2
+14: -2
+15: -2
+16: -2
+17: -2
+18: -2
+19: -2
+1a: -2
+1b: -2
+1c: -2
+1d: -2
+1e: -2
+1f: -2
 /////
-0: 5
-1: 0
-2: -0
-3: -0
-4: -0
-5: -0
-6: -0
-7: -0
-8: -0
-9: -0
-a: -0
-b: -0
-c: -0
-d: -0
-e: -0
-f: 5
-10: -0
-11: -0
-12: -0
-13: -0
-14: -0
-15: -0
-16: -0
-17: -0
-18: -0
-19: -0
-1a: -0
-1b: -0
-1c: -0
-1d: -0
-1e: -0
-1f: -0
+0: 10
+1: -4
+2: -4
+3: -4
+4: -4
+5: -4
+6: -4
+7: -4
+8: -4
+9: -4
+a: -4
+b: -4
+c: -4
+d: -4
+e: -4
+f: -4
+10: -4
+11: -4
+12: -4
+13: -4
+14: -4
+15: -4
+16: -4
+17: -4
+18: -4
+19: -4
+1a: -4
+1b: -4
+1c: -4
+1d: -4
+1e: -4
+1f: -4

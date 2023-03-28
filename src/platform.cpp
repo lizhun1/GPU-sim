@@ -28,6 +28,7 @@ void platform::read_a_ptx(const char* ptx_path){
             //func_tmp->show_txt();
             func_tmp->get_inst();
             //func_tmp->show_variable();
+            func_tmp->show_jt();
             this->funcs.push_back(*func_tmp);
             delete func_tmp;
             
@@ -39,13 +40,16 @@ void platform::read_a_ptx(const char* ptx_path){
 void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param){
     func *sim_func;
     sim_func=&(funcs[func_idx]);
-    //sim_func->show_txt();
+    
     uint offset=3;
     //ctx.s_t.add_varible(array_name+to_string(j+1),(enum data_type) data_type_lib_int[var.variable_data_t],0);
     for(uint i=0;i<sim_func->variables.size();i++){
         
         auto var=sim_func->variables[i];
         //enum data_type d_t=1;
+        if(sim_func->jump_point.find(var.variable_name)!=sim_func->jump_point.end()){
+            continue;
+        }
         if(var.variable_name.find("<")!=string::npos)
         {
             uint array_num=stoi(split_multi(var.variable_name,"<>").back());
@@ -73,9 +77,6 @@ void platform::create_context(uint func_idx,dim3 cuda_dim,vector<any> real_param
     }
     //jump_point
     ctx.s_t.jump_table=sim_func->jump_point;
-    for(auto &jump:sim_func->jump_point){
-        cout<<"jump point "<<jump.first<<" is "<<jump.second<<endl;
-    }
     //translate the operands
      for(uint i=0;i<sim_func->inst_queue.size();i++){
          sim_func->inst_queue[i].trans(ctx.s_t);
@@ -104,7 +105,8 @@ void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
 
     }
     //
-    //cout<<funcs[func_idx].param.size()<<endl;
+    cout<<"sim func inst num is "<<funcs[func_idx].inst_queue.size()<<endl;
+    funcs[func_idx].show_txt();
     assert(param_num==funcs[func_idx].param.size());
     //unknown param
     
@@ -154,7 +156,9 @@ void platform::sim(string func_name,dim3 cuda_dim,uint param_num,... ){
 
     }
     cout<<"create context"<<endl;
+    funcs[func_idx].show_jt();
     this->create_context(func_idx,cuda_dim,r_param);
+    //funcs[func_idx].show_jt();
     //cout<<this->gpu->global_mem_t.mem_read(0)<<"test "<<endl;
     this->load_inst_cache(func_idx);
     this->gpu->gpu_run();
